@@ -1,0 +1,56 @@
+
+/* docsafari.css */
+.docBookTitle, .docPartTitle {font-family: verdana, sans-serif; color: #6D7288; font-size: 180%; font-weight: bold; border: none; }
+.docPrefaceTitle, .docAppendixTitle, .docChapterTitle, .docBibliographyTitle, .docArticleTitle, .docGlossaryTitle {font-family: verdana, sans-serif; color: #646480; font-size: 170%; margin-top: 5px; font-weight: bold; }
+.docSidebarTitle {font-family: verdana, sans-serif; color: #6D7288; font-size: 115%; text-align: center; }
+.docSection1Title, .docBibliodivTitle, .docBridgehead {font-family: verdana, sans-serif; color: #6D7288; margin-top: 5px; font-size: 155%; }
+.docSection2Title, .docBibliosetTitle {font-family: verdana, sans-serif; color: #6D7288; margin-top: 5px; font-size: 140%; }
+.docSection3Title, .docSection4Title, .docSection5Title {font-family: verdana, sans-serif; color: #7D8298; margin-top: 5px; font-size: 115%; font-weight: bold; }
+.docFigureTitle, .docTableTitle, .docExampleTitle, .docTocTitle, .docAbstractTitle, .docQandasetTitle, .docProcTitle, .docRefsectTitle {font-family: verdana, sans-serif; color: #000066; font-size: 110%; font-weight: bold; }
+.docText, .docList {font-family: verdana, sans-serif; color: black; font-size: 105%; }
+.docMonofont {font-family: 'Courier New', Courier, monospace; font-size: 95%; }
+.docTableHeader, .docTableCell {font-family: Verdana,'Times New Roman', Times,serif; color: black; font-size: 105%; }
+.docTableFooter {font-family: verdana, sans-serif; color: black; font-size: 105%; }
+.docRefCell {font-family: verdana, sans-serif; color: black; font-size: 115%; }
+.docTextHighlight {font-weight: bold; background: #FFE298; }
+.docIndexterm {color: #A0A0A0; font-size: 105%; }
+.docFootnote, .docItemizedlist {font-family: verdana, sans-serif; color: #000000; font-size: 80%; }
+.docNote {blockquote margin-top: 2em; margin-right: 2em; margin-bottom: 2em; margin-left: 2em; }
+.docNoteTitle {font-family: verdana, sans-serif; color: black; font-size:  105%; font-weight: bold; }
+.docNormalTitle, .docTipTitle {font-family: verdana, sans-serif; color: #6D7288; font-size: 115%; font-weight: bold; }
+.docCautionsTitle {font-family: verdana, sans-serif; color: #CC0000; font-size: 115%; font-weight: bold; }
+.docLink {color: #00217B; text-decoration: none; }
+.docLink:visited {     color: #00217B; text-decoration: none; }
+.docLink:hover {     color: #00217B; text-decoration: underline; }
+.docEmphasis   {font-style: italic; }
+.docEmphBold, .docEmphStrong {font-weight: bold; }
+.docEmphGray {color: #C0C0C0; }
+.docEmphMark {background-color: #C0C0C0; }
+.docEmphRev {color: silver; background-color: black; }
+.docEmphStrike {text-decoration: line-through; }
+.docEmphUl, .docEmphCursor {text-decoration: underline; }
+.docEmphBoldItalic {font-style: italic; font-weight: bold; }
+.docEmphRoman {font-style: normal; text-decoration: none; text-transform: none; font-weight: normal; font-variant: normal; }
+.docEmphSmaller {color: #354278; font-size: 75%; }
+.docEmphHyperlink {color: black; }
+.docCaps {text-transform: uppercase; }
+.docStructname {font-variant: small-caps; }
+.docPubcolor {color: #354278; }
+.st1 {font-family: verdana, sans-serif; color: #3333CC; text-decoration: none; font-size: 85%; }
+hr.normal  {border: none 0; border-top: 1px solid #B8BDD5; width: 100%; height: 1px; margin: 0; }
+pre {color: #000066; font-family: 'Courier New', Courier, monospace; font-size: 100%; }
+tt {color: #000066; font-family: 'Courier New', Courier, monospace; font-size: 100%; }
+.mm {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 115%; font-weight : normal; text-decoration : none; background-color: #999999; color: #FFFFFF; }
+.docEmphRomanAlt   {font-family: 'Times New Roman',Times,serif; }
+.docEmphBoldAlt   {font-family: 'Times New Roman',Times,serif; font-weight:bold; }
+.docEmphItalicAlt   {font-family: 'Times New Roman',Times,serif; font-style: italic; }
+TD.docTableCell   {padding: 5px 3px; margin: 0px; }
+TH.docTableHeader, TD.thead, .thead  {font-weight: bold; font-style: normal; font-size: 105%; padding: 5px 3px; }
+.docDoubleUnderscore   {text-decoration: double underline; border-bottom:solid 1px black; }
+SPAN.docDoubleUnderscore   {border-bottom: 3px #000000 double; }
+.allBorders   {border: 1px #000000 solid; }
+.bottomBorder   {border-bottom: 1px #000000 solid; border-bottom2: solid #000000; }
+.topBorder   {border-top: 1px #000000 solid; }
+.leftBorder   {border-left: 1px #000000 solid; }
+.rightBorder   {border-right: 1px #000000 solid; }
+

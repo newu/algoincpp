@@ -1,0 +1,114 @@
+<html><head><title>9.5. Priority-Queue ADT</title><title>TeamUnknown</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/globalstyle.css" /><link href="includes/searchResults.css" rel="stylesheet" type="text/css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/style.css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/docsafari.css" /><body><table width="100%" border="0" cellspacing="0" cellpadding="0"><td class="docBookTitle"><a href="toc.html"><b>[ Team Unknown ]</b></a></td></table><td align="center"><a name="MainContent"></a><table width="95%"><tr><td align="left" class="v2"><!--Copyright (c) 2002 Safari Tech Books Online--><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"><a href="17051538.html"><img src="btn_next_.gif" width="1" height="1" alt="Next" border="0" /></a> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch09lev1sec4.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch09lev1sec6.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><div id="section"><br /><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top">C++ Programming Robert Sedgewick - Princeton University Addison Wesley Professional Algorithms in C++, Parts 1&ndash;4: Fundamentals, Data Structure, Sorting, Searching, Third Edition<a name="ch09lev1sec5"></a>
+<h3 id="title-IDA2VV5H" class="docSection1Title">9.5. Priority-Queue ADT</h3>
+<p class="docText">For most applications of priority queues, we want to arrange to have the priority queue routine, instead of returning values for <span class="docEmphasis">remove the maximum</span>, tell us <span class="docEmphasis">which</span> of the records has the largest key, and to work in a similar fashion for the other operations. That is, we assign priorities and use priority queues for only the purpose of accessing other information in an appropriate order. This arrangement is akin to use of the <span class="docEmphasis">indirect-sort</span> or the <span class="docEmphasis">pointer-sort</span> concepts described in <a class="docLink" href="ch06.html#ch06">Chapter 6</a>. In particular, this approach is required for operations such as <span class="docEmphasis">change priority</span> or <span class="docEmphasis">remove</span> to make sense. We examine an implementation of this idea in detail here, both because we shall be using priority queues in this way later in the book and because this situation is prototypical of the problems we face when we design interfaces and implementations for ADTs.</p>
+<p class="docText">When we want to <span class="docEmphasis">remove</span> an item from a priority queue, how do we specify which item? When we want to maintain multiple priority queues, how do we organize the implementations so that we can manipulate priority queues in the same way that we manipulate other <a name="iddle1559"></a><a name="iddle1982"></a><a name="iddle2108"></a>types of data? Questions such as these are the topic of <a class="docLink" href="ch04.html#ch04">Chapter 4</a>. <a class="docLink" href="#ch09ex17">Program 9.8</a> gives a general interface for priority queues along the lines that we discussed in <a class="docLink" href="ch04lev1sec8.html#ch04lev1sec8">Section 4.8</a>. It supports a situation where a client has keys and associated information and, while primarily interested in the operation of accessing the information associated with the highest key, may have numerous other data-processing operations to perform on the objects, as we discussed at the beginning of this chapter. All operations refer to a particular priority queue through a handle (a pointer to a structure that is not specified). The <span class="docEmphasis">insert</span> operation returns a handle for each object added to the priority queue by the client program. Object handles are different from priority queue handles. In this arrangement, client programs are responsible for keeping track of handles, which they may later use to specify which objects are to be affected by <span class="docEmphasis">remove</span> and <span class="docEmphasis">change priority</span> operations, and which priority queues are to be affected by all of the operations.</p>
+<a name="ch09ex17"></a><h5 id="title-IDAYYV5H" class="docExampleTitle">Program 9.8. Full priority-queue ADT</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">This interface for a priority-queue ADT allows client programs to delete items and to change priorities (using handles provided by the implementation) and to merge priority queues together.</p>
+<div class="docText"><pre>    template &lt;class Item&gt;
+    class PQ
+      {
+        private:
+          // Implementation-dependent code
+        public:
+          // Implementation-dependent handle definition
+          PQ(int);
+          int empty() const;
+          handle insert(Item);
+          Item getmax();
+          void change(handle, Item);
+          void remove(handle);
+          void join(PQ&lt;Item&gt;&amp;);
+      };</pre></div><br />
+</td></tr></table></p>
+<p class="docText">This arrangement places restrictions on both the client program and the implementation. The client program is not given a way to access <a name="iddle1386"></a><a name="iddle1792"></a><a name="iddle1812"></a><a name="iddle2112"></a>information through handles except through this interface. It has the responsibility to use the handles properly: for example, there is no good way for an implementation to check for an illegal action such as a client using a handle to an item that is already removed. For its part, the implementation cannot move around information freely, because client programs have handles that they may use later. This point will become more clear when we examine details of implementations. As usual, whatever level of detail we choose in our implementations, an abstract interface such as <a class="docLink" href="#ch09ex17">Program 9.8</a> is a useful starting point for making tradeoffs between the needs of applications and the needs of implementations.</p>
+<p class="docText">Straightforward implementations of the basic priority-queue operations, using an unordered doubly linked-list representation, are given in <a class="docLink" href="#ch09ex18">Program 9.9</a>. This code illustrates the nature of the interface; it is easy to develop other, similarly straightforward, implementations using other elementary representations.</p>
+<p class="docText">As we discussed in <a class="docLink" href="ch09lev1sec1.html#ch09lev1sec1">Section 9.1</a>, the implementation given in <a class="docLink" href="#ch09ex18">Programs 9.9</a> and <a class="docLink" href="#ch09ex19">9.10</a> is suitable for applications where the priority queue is small and <span class="docEmphasis">remove the maximum</span> or <span class="docEmphasis">find the maximum</span> operations are infrequent; otherwise, heap-based implementations are preferable. Implementing <tt>fixUp</tt> and <tt>fixDown</tt> for heap-ordered trees with explicit links while maintaining the integrity of the handles is a challenge that we leave for exercises, because we shall be considering two alternative approaches in detail in <a class="docLink" href="ch09lev1sec6.html#ch09lev1sec6">Sections 9.6</a> and <a class="docLink" href="ch09lev1sec7.html#ch09lev1sec7">9.7</a>.</p>
+<p class="docText">A full ADT such as <a class="docLink" href="#ch09ex17">Program 9.8</a> has many virtues, but it is sometimes advantageous to consider other arrangements, with different restrictions on the client programs and on implementations. In <a class="docLink" href="ch09lev1sec6.html#ch09lev1sec6">Section 9.6</a> we consider an example where the client program keeps the responsibility for maintaining the records and keys, and the priority-queue routines refer to them indirectly.</p>
+<p class="docText">Slight changes in the interface also might be appropriate. For example, we might want a function that returns the value of the highest priority key in the queue, rather than just a way to reference that key and its associated information. Also, the issues that we considered in <a class="docLink" href="ch04lev1sec8.html#ch04lev1sec8">Section 4.8</a> associated with memory management and copy semantics come into play. We are not considering <span class="docEmphasis">destroy</span> or true <span class="docEmphasis">copy</span> operations, and have chosen just one out of several possibilities for <span class="docEmphasis">join</span> (see <a class="docLink" href="#ch09qa6q6">Exercises 9.43</a> and <a class="docLink" href="#ch09qa6q7">9.44</a>).</p>
+<p class="docText"></p><a name="ch09ex18"></a><h5 id="title-IDA13V5H" class="docExampleTitle">Program 9.9. Unordered doubly-linked-list priority queue</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">This implementation includes the <span class="docEmphasis">construct</span>, <span class="docEmphasis">test if empty</span>, and <span class="docEmphasis">insert</span> functions from the interface of <a class="docLink" href="#ch09ex17">Program 9.8</a> (see <a class="docLink" href="#ch09ex19">Programs 9.10</a> for implementations of the other four functions). It maintains a simple unordered list, with head and tail nodes. We specify the structure <tt>node</tt> to be a doubly-linked list node (with an item and two links). The private data representation consists of the list's head and tail links.</p>
+<div class="docText"><pre>template &lt;class Item&gt;
+    class PQ
+      {
+        private:
+          struct node
+            { Item item; node *prev, *next;
+              node(Item v)
+                { item = v; prev = 0; next = 0; }
+            };
+           typedef node *link;
+           link head, tail;
+         public:
+           typedef node* handle;
+           PQ(int = 0)
+             {
+               head = new node(0); tail = new node(0);
+               head-&gt;prev = tail; head-&gt;next = tail;
+               tail-&gt;prev = head; tail-&gt;next = head;
+             }
+           int empty() const
+             { return head-&gt;next-&gt;next == head; }
+           handle insert(Item v)
+             { handle t = new node(v);
+               t-&gt;next = head-&gt;next; t-&gt;next-&gt;prev = t;
+               t-&gt;prev = head; head-&gt;next = t;
+               return t;
+             }
+          Item getmax();
+          void change(handle, Item);
+          void remove(handle);
+          void join(PQ&lt;Item&gt;&amp;);
+      };</pre></div><br />
+</td></tr></table></p>
+<p class="docText">It is easy to add such procedures to the interface in <a class="docLink" href="#ch09ex17">Program 9.8</a>, but it is much more challenging to develop an implementation where logarithmic performance for all operations is guaranteed. In applications where the priority queue does not grow to be large, or where the mix of <span class="docEmphasis">insert</span> and <span class="docEmphasis">remove the maximum</span> operations has some special properties, a fully flexible interface might be desirable. On the other hand, in applications where the queue will grow to be large, and where a tenfold or a hundredfold increase in performance might be noticed or appreciated, it might be worthwhile to restrict to the set of operations where efficient performance is assured. A great deal of research has gone into the design of priority-queue algorithms for different mixes of operations; the binomial queue described in <a class="docLink" href="ch09lev1sec7.html#ch09lev1sec7">Section 9.7</a> is an important example.</p>
+<p class="docQandasetTitle">Exercises</p><p><table border="0" cellspacing="16" cellpadding="0"><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q1"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">9.38</span> Which priority-queue implementation would you use to find the 100 smallest of a set of 10<sup>6</sup> random numbers? Justify your answer.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q2"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">9.39</span> Provide implementations similar to <a class="docLink" href="#ch09ex18">Programs 9.9</a> and <a class="docLink" href="#ch09ex19">9.10</a> that use <span class="docEmphasis">ordered</span> doubly linked lists. <span class="docEmphasis">Note</span>: Because the client has handles into the data structure, your programs can change only links (rather than keys) in nodes.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q3"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">9.40</span> Provide implementations for <span class="docEmphasis">insert</span> and <span class="docEmphasis">remove the maximum</span> (the priority-queue interface in <a class="docLink" href="ch09.html#ch09ex02">Program 9.1</a>) using complete heap-ordered trees represented with explicit nodes and links. <span class="docEmphasis">Note</span>: Because the client has no handles into the data structure, you can take advantage of the fact that it is easier to exchange information fields in nodes than to exchange the nodes themselves.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q4"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">9.41</span> Provide implementations for <span class="docEmphasis">insert</span>, <span class="docEmphasis">remove the maximum</span>, <span class="docEmphasis">change priority</span>, and <span class="docEmphasis">remove</span> (the priority-queue interface in <a class="docLink" href="#ch09ex17">Program 9.8</a>) using heap-ordered trees with explicit links. <span class="docEmphasis">Note</span>: Because the client has handles into the data structure, this exercise is more difficult than <a class="docLink" href="#ch09qa6q3">Exercise 9.40</a>, not just because the nodes have to be triply-linked, but also because your programs can change only links (rather than keys) in nodes.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q5"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">9.42</span> Add a (brute-force) implementation of the <span class="docEmphasis">join</span> operation to your implementation from <a class="docLink" href="#ch09qa6q4">Exercise 9.41</a>.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q6"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">9.43</span> Add declarations for a destructor, a copy constructor, and an overloaded assignment operator to <a class="docLink" href="#ch09ex17">Program 9.8</a> to convert it into a first-class ADT, add the corresponding implementations to <a class="docLink" href="#ch09ex18">Programs 9.9</a> and <a class="docLink" href="#ch09ex19">9.10</a>, and write a driver program that tests your interface and implementation.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q7"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">9.44</span> Change the interface and implementation for the <span class="docEmphasis">join</span> operation in <a class="docLink" href="#ch09ex18">Programs 9.9</a> and <a class="docLink" href="#ch09ex19">9.10</a> such that it returns a <tt>PQ</tt> (the result of joining the arguments) and has the effect of destroying the arguments.</p>
+<p class="docText"></p><a name="ch09ex19"></a><h5 id="title-IDANG2RD" class="docExampleTitle">Program 9.10. Doubly-linked-list priority queue</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText"><a name="iddle1387"></a><a name="iddle1793"></a><a name="iddle1813"></a><a name="iddle2113"></a>Substituting these implementations for the corresponding declarations in <a class="docLink" href="#ch09ex18">Program 9.9</a> yields a complete priority queue implementation. The <span class="docEmphasis">remove the maximum</span> operation requires scanning through the whole list, but the overhead of maintaining doubly-linked lists is justified by the fact that the <span class="docEmphasis">change priority</span>, <span class="docEmphasis">remove</span>, and <span class="docEmphasis">join</span> operations all are implemented in constant time, using only elementary operations on the lists (see <a class="docLink" href="ch03.html#ch03">Chapter 3</a> for more details on doubly linked lists).</p>
+<p class="docText">If desired, we could add a destructor, copy constructor, and overloaded assignment operator to further develop this implementation into a first-class ADT (see <a class="docLink" href="ch04lev1sec8.html#ch04lev1sec8">Section 4.8</a>). Note that the <tt>join</tt> implementation appropriates the list nodes from the argument to be included in the result, but it does <span class="docEmphasis">not</span> make copies of them.</p>
+<div class="docText"><pre>
+      Item getmax()
+        { Item max; link x = head-&gt;next;
+          for (link t = x; t-&gt;next != head; t = t-&gt;next)
+            if (x-&gt;item &lt; t-&gt;item) x = t;
+          max = x-&gt;item;
+          remove(x);
+          return max;
+        }
+      void change(handle x, Item v)
+        { x-&gt;key = v; }
+      void remove(handle x)
+        {
+          x-&gt;next-&gt;prev = x-&gt;prev;
+          x-&gt;prev-&gt;next = x-&gt;next;
+          delete x;
+        }
+      void join(PQ&lt;Item&gt;&amp; p)
+        {
+          tail-&gt;prev-&gt;next = p.head-&gt;next;
+          p.head-&gt;next-&gt;prev = tail-&gt;prev;
+          head-&gt;prev = p.tail;
+          p.tail-&gt;next = head;
+          delete tail; delete p.head;
+          tail = p.tail;
+        }</pre></div><br />
+</td></tr></table></p>
+</td></tr><tr><td></td><td></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q8"></a><b></b></td><td><p class="docText"><a name="iddle1608"></a><a name="iddle1638"></a><a name="iddle1646"></a><a name="iddle1693"></a><a name="iddle2110"></a><span class="docEmphStrong">9.45</span> Provide a priority queue interface and implementation that supports <span class="docEmphasis">construct</span> and <span class="docEmphasis">remove the maximum</span>, using tournaments (see <a class="docLink" href="ch05lev1sec7.html#ch05lev1sec7">Section 5.7</a>). <a class="docLink" href="ch05lev1sec7.html#ch05ex34">Program 5.19</a> will provide you with the basis for <span class="docEmphasis">construct</span>.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q9"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">9.46</span> Convert your solution to <a class="docLink" href="#ch09qa6q8">Exercise 9.45</a> into a first-class ADT.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch09qa6q10"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">9.47</span> Add <span class="docEmphasis">insert</span> to your solution to <a class="docLink" href="#ch09qa6q8">Exercise 9.45</a>.</p></td></tr></table></p>
+<ul></ul></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"><a href="17051538.html"><img src="btn_next_.gif" width="1" height="1" alt="Next" border="0" /></a> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch09lev1sec4.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch09lev1sec6.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="top" align="right"><span style="white-space:nowrap"><a target="_self" href="#toppage" title="Top"></a></span></td></tr></table></div><!--IP User 2--></td></tr></table></td></body></head></html>

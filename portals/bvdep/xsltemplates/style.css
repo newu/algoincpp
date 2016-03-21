@@ -1,0 +1,789 @@
+.safariXDlg
+{
+  width: 100%; 
+  border-width: 1px; 
+  border-style: solid; 
+  border-color: #0434B2;
+  padding: 2px;
+}
+
+/*Amazon styles */
+.aTopMenu
+{
+	font-family: Arial,Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color : #4B4B4B;
+	text-decoration : none;
+}
+.aTopMenu:hover
+{
+	font-family: Arial,Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color : #4B4B4B;
+	text-decoration : underline;
+}
+
+.aBottomBoxesLink
+{
+	font-family: Arial,Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight:700;
+	color : black;
+	text-decoration : underline;
+}
+.aBottomBoxesLink:link
+{
+	font-family: Arial,Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight:700;
+	color : black;
+	text-decoration : underline;
+}
+.aBottomBoxesLink:visited
+{
+	font-family: Arial,Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight:700;
+	color : black;
+	text-decoration : underline;
+}
+.aCells {
+	font-family: Arial,Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color : #303030;
+	text-decoration : none;
+}
+
+.aCells:link {
+	text-decoration : none;
+	color : #303030;
+}
+
+.aAuthor
+{
+	font-family: Arial,Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color : #303030;
+	text-decoration : underline;
+
+}
+.aCategories
+{
+	font-family: Arial,Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color : #423E5C;
+	background-color:#EEF2F6;
+	font-style: italic
+}
+.a1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 7.5pt;
+	color : #4B4B4B;
+	text-decoration : underline;
+}
+
+.a1:link {
+	text-decoration : underline;
+	color : #4B4B4B;
+}
+
+.a1:hover {
+	text-decoration : underline;
+	color : #9E0B0E;
+}
+
+.a2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color : #4B4B4B;
+	text-decoration : none;
+}
+
+.a2:link {
+	text-decoration : underline;
+	color : #4B4B4B;
+}
+
+.a2:hover {
+	text-decoration : underline;
+	color : #9E0B0E;
+}
+
+.a3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 7.5pt;
+	color : #4B4B4B;
+	text-decoration : none;
+}
+
+.a3:link {
+	text-decoration : underline;
+	color : #4B4B4B;
+}
+
+.a3:hover {
+	text-decoration : underline;
+	color : #9E0B0E;
+}
+
+.a4 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color : #222222;
+	line-height: 18px;
+}
+
+.AdvancedSearchTextHighlight {
+	background-color: #f7e583;
+}
+	
+.bg {
+	background-color: #ffffff;
+}
+
+BODY {
+	background-color: white;
+	color: black;
+}
+
+.DefaultPageHeadline {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	line-height: 14pt;
+	font-weight: bold;
+}
+
+.DefaultPageText {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+/* SETS THE BACKGROUND COLOR FOR DIALOG BOXES SUCH AS ADVANCED SEARCH */
+.dlg {
+	background-color: #FFFFCC;
+}
+
+.PricesMax {
+	background-color: #E79F58;
+}
+.PricesMaxOutline {
+	background-color: #CC6600;
+}
+.PricesBasic {
+	background-color: #EEE8E9;
+}
+.PricesBasicOutline {
+	background-color: #999999;
+}
+
+.entrybox1 {
+	border: 1px solid #E7D68E;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.FAQBoxHeadline { 
+	font-family: Arial, Arial, Helvetica, sans-serif; 
+	font-size: 9pt; 
+	color : #CC0033; 
+	text-decoration : none; 
+	font-weight: bold; 
+	line-height: 10pt
+}
+
+.FAQBoxQuestion { 
+	font-family: Arial, Arial, Helvetica, sans-serif; 
+	font-size: 8pt; 
+	color : #303030; 
+	line-height: 10pt; 
+	text-decoration : none;
+	font-weight: bold
+}
+
+.FAQBoxAnswer { 
+	font-family: Arial, Arial, Helvetica, sans-serif; 
+	font-size: 8pt; 
+	text-decoration : none; 
+	color : #4B4B4B; 
+	line-height: 10pt; 
+	font-weight: normal
+}
+
+.GroupNotesBorder {
+	background-color: #D0C7DE;
+}
+
+.GroupNotesEvenRows {
+	background-color: #ffffff;
+}
+
+.GroupNotesOddRows {
+	background-color: #F1EFF5;
+}
+
+.GroupNotesTableHeading {
+	background-color: #DDD9E7;
+}
+
+.hdr1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	padding-left: 2px;
+	text-align: center;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	color: #0A0A0A;
+	vertical-align: middle;
+	line-height: 12px;
+}
+
+.hdr {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight:900;
+	color: #000000;
+	vertical-align: middle;
+	line-height: 12px;
+	margin-bottom:15px;
+}
+
+.ListByCatBorder {
+	background-color: #D0C7DC;
+}
+
+.ListByCatEvenRows {
+        background-color: #ffffff;
+
+}
+
+.ListByCatOddRows {
+	background-color: #F1EFF5;
+
+}
+
+.ListByCatTableHeading {
+	background-color: #DDD9E7;
+}
+
+/* SETS THE BACKGROUND AND TEXT COLORS FOR THE NAV BAR LOGOUT CELL IN TOP.XSL */
+.logout {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.logout:hover {
+	text-decoration : none;
+	color: #FFD200;
+}
+
+.menuborder {
+	background-color: #DCDCEB;
+}
+
+.menuLeft {
+	background-color: #FDE277;
+}
+
+.menuRight {
+	background-color: #FDE277;
+}
+
+/* SETS THE BACKGROUND AND TEXT PROPERTIES FOR THE HEADER BARS IN THE RIGHT MENU OF HOME.XSL */
+.menuRightHeader {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight : bold;
+	text-decoration : none; 
+	color: #FFFFFF;
+	background-color: #333366;
+}
+
+/* SETS THE BACKGROUND AND TEXT PROPERTIES FOR THE LOGIN AND WELCOME BARS IN THE RIGHT MENU OF HOME.XSL */
+.menuRightLoginHeader { 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 10pt; 
+	font-weight : bold; 
+	text-decoration : none; 
+	background-color: #B5121B;
+	color: #FFD200;
+}	
+
+.MyBookmarksBorder {
+	background-color:#D0C7DC;
+}
+
+.MyBookmarksEvenRows {
+	background-color: #ffffff;
+}
+
+.MyBookmarksOddRows {
+	background-color: #F1EFF5;
+
+}
+
+.MyBookmarksTableHeading {
+	background-color: #DDD9E7;
+}
+
+.MyDownloadsBorder {
+	background-color:#D0C7DC;
+}
+
+.MyDownloadsEvenRows {
+	background-color: #FFFFFF;
+}
+
+.MyDownloadsOddRows {
+	background-color: #F1EFF5;
+}
+
+.MyDownloadsTableHeading {
+	background-color: #DDD9E7;
+}
+
+
+
+.MyTokensBorder {
+	background-color:#D0C7DC;
+}
+
+.MyTokensEvenRows {
+	background-color: #FFFFFF;
+}
+
+.MyTokensOddRows {
+	background-color: #F1EFF5;
+
+}
+
+.MyTokensTableHeading {
+	background-color: #DDD9E7;
+}
+
+
+
+.MyBookshelfBorder {
+	background-color: #D0C7DC;
+}
+
+.MyBookshelfSpacer {
+	background-color: #EDDFDF;
+}
+
+.MyBookshelfEvenRows {
+}
+
+.MyBookshelfOddRows {
+	background-color: #ffffff;
+
+}
+
+.MyBookshelfTableHeading {
+}
+
+.MyNotesBorder {
+	background-color: #D0C7DC;
+}
+
+.MyNotesEvenRows {
+	background-color: #FFFFFF;
+}
+
+.MyNotesOddRows {
+	background-color: #F1EFF5;
+
+}
+
+.MyNotesTableHeading {
+	background-color: #DDD9E7;
+}
+
+.MyRecentPagesBorder {
+	background-color: #D0C7DE;
+}
+
+.MyRecentPagesEvenRows {
+	background-color: #FFFFFF;
+}
+
+.MyRecentPagesOddRows {
+	background-color: #F1EFF5;
+
+}
+
+.MyRecentPagesTableHeading {
+	background-color: #DDD9E7;
+}
+
+.MyRecentSearchesBorder {
+	background-color: #D0C7DE;
+}
+
+.MyRecentSearchesEvenRows {
+	background-color:#FFFFFF;
+}
+
+.MyRecentSearchesOddRows {
+	background-color: #F1EFF5;
+
+}
+
+.MyRecentSearchesTableHeading {
+	background-color: #DDD9E7;
+}
+
+.n1 {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color : #303030;
+	line-height: 16px;
+	text-decoration : none;
+	padding: 7px;
+}
+
+/* SETS THE TEXT AND BACKGROUND COLORS FOR THE NAVIGATION BUTTONS ON TOP.XSL */
+.navbtn {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight : bold;
+	color : #FFFFFF;
+	text-decoration : none;
+}
+
+/* SETS THE TEXT COLOR FOR THE SELECTED NAVIGATION BUTTON ON TOP.XSL WHEN HOVERING */
+.navbtn:hover {
+	text-decoration : none;
+	color : #FFD200;
+}
+
+/* SETS THE TEXT AND BACKGROUND COLORS FOR THE SELECTED NAVIGATION BUTTON ON TOP.XSL */
+.navbtnSel {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight : bold;
+	color : #FFFFFF;
+	text-decoration : none;
+}
+
+/* SETS THE BACKGROUND COLOR FOR THE EXTRA NAVIGATION BUTTON TO THE LEFT OF HOME ON TOP.XSL */
+.navbtnLeft {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight : bold;
+	color : #FFFFFF;
+	text-decoration : none;
+}
+
+.NewThisWeekBorder {
+	background-color: #D0C7DE;
+}
+
+.NewThisWeekEvenRows {
+}
+
+.NewThisWeekOddRows {
+}
+
+.NewThisWeekTableHeading {
+	background-color: #DDD9E7;
+}
+
+.PreviewTableTitleBackground { 
+	color: #F3E583; 
+	font-weight: bold; 
+	font-size: 9pt; 
+	line-height: 20px; 
+	font-family: Arial, Arial, Helvetica, sans-serif; 
+	text-decoration: none; 
+	background-color: #CC0000; 
+	text-align: left; 
+	font-weither: bold 
+}
+
+.PreviewTableBodyBackground { 
+	color: #303030; 
+	font-weight: normal; 
+	font-size: 8pt; 
+	line-height: 16px; 
+	font-family: Arial, Arial, Helvetica, sans-serif; 
+	text-decoration: none; 
+	background-color: #FFD2D3
+}
+
+.printhdr {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+.PublicNotesBorder {
+	background-color: #D0C7DE;
+}
+
+.PublicNotesEvenRows {
+	background-color: #FFFFFF;
+}
+
+.PublicNotesOddRows {
+	background-color: #F1EFF5;
+
+}
+
+.PublicNotesTableHeading {
+	background-color: #DDD9E7;
+}
+
+.RecommendedTitlesBorder {
+	background-color: #D0C7DC;
+}
+
+.RecommendedTitlesEvenRows {
+}
+
+.RecommendedTitlesOddRows {
+}
+
+.RecommendedTitlesTableHeading {
+	background-color: #DDD9E7;
+}
+
+.SearchResultBorder {
+	background-color:#D0C7DE;
+}
+
+.SearchResultEvenRows {
+	background-color: #ffffff;
+}
+
+.SearchResultOddRows {
+	background-color: #F1EFF5;
+}
+
+.SearchResultTableHeading {
+	background-color: #DDD9E7;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	padding-left: 2px;
+	text-align: center;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	color: #0A0A0A;
+	vertical-align: middle;
+	line-height: 12px;
+}
+
+.SectionSearchResultBorder {
+	background-color:#D0C7DE;
+}
+
+.SectionSearchResultEvenRows {
+	background-color:#ffffff;
+}
+
+.SectionSearchResultOddRows {
+	background-color:#F1EFF5;
+}
+
+.SectionSearchResultTableHeading {
+	background-color: #DDD9E7;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	padding-left: 2px;
+	text-align: center;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	color: #0A0A0A;
+	vertical-align: middle;
+	line-height: 12px;
+}
+
+.t1 { 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12pt; color : #222222; ; 
+	font-weight: bold;
+}
+	
+.t2 { 
+	font-family: Arial, Arial, Helvetica, sans-serif; 
+	font-size: 9pt; 
+	font-weight : bold; 
+	text-decoration : none; 
+}
+
+.t3 { 
+	font-family: Arial, Arial, Helvetica, sans-serif; 
+	font-size: 8.5pt; 
+	font-weight : bold; 
+	text-decoration : none; 
+	background-color: #9D3036;
+	color: #FFFF7B;
+}	
+	
+.t4 { 
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight : bold;
+	color : #FFFFFF;
+	text-decoration : none;
+	background-color: #333366;
+}
+
+.t5 { 
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight : bold;
+	text-decoration : none; 
+	color: #B5121B;
+	background-color: #FFD200;
+}
+
+.tToolsTable
+{
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight : bold;
+	text-decoration : none; 
+	color: #B5121B;
+	background-color: #FFD200;
+}
+
+.TextFrame {
+	background-color: #d1c8a1;
+}
+
+.toc {
+	background-color: #FFFFC1;
+}
+
+.Top5Border {
+	background-color: #D0C7DE;
+}
+	
+.Top5EvenRows {
+}
+
+.Top5OddRows {
+}
+
+.Top5TableHeading {
+	background-color:#DDD9E7;
+}
+
+/* SETS THE BACKGROUND COLOR FOR THE TOP BAR OF TOP.XSL */
+.toplogo {
+	background-color: #FFCC00;
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 16pt;
+	color : #303030;
+
+}
+
+/* SETS THE BORDER BACKGROUND COLOR FOR THE NAVBAR OF TOP.XSL */
+.topmenu {
+	background-color: #8F0F0F;
+}
+
+
+.v1 {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	color : #003399;
+	text-decoration : none;
+}
+
+.v1:link {
+	text-decoration : none;
+	color : #003399;
+}
+
+.v1:hover {
+	text-decoration : underline;
+	color : #9E0B0E;
+}
+
+.v2 {
+	font-family: verdana, Arial, Helvetica, sans-serif;
+	font-size: 105%;
+	color : #303030;
+	line-height: 16px;
+	text-decoration : none;
+}
+
+.v2:link {
+	text-decoration : none;
+	color : #303030;
+}
+.v3 {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-decoration : none;
+	color : #4B4B4B;
+}
+
+.v3:link {
+	text-decoration : none;
+	color : #303030;
+}
+
+.v3:hover {
+	text-decoration : underline;
+	color : #9E0B0E;
+}
+
+.v4 {
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+	color : #303030;
+	line-height: 16px;
+	text-decoration : none;
+}
+
+.v4:link {
+	font-weight: bold;
+	text-decoration : none;
+	color : #303030;
+}
+
+
+
+.red {
+	color : red;
+	font-family: Arial, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color : red;
+	line-height: 16px;
+	text-decoration : none;
+	font-weight: bold;
+	
+}
+
+th
+{
+	font-weight : normal;
+}

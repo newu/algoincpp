@@ -1,0 +1,95 @@
+<html><head><title>5.6. Tree Traversal</title><title>TeamUnknown</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/globalstyle.css" /><link href="includes/searchResults.css" rel="stylesheet" type="text/css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/style.css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/docsafari.css" /><body><table width="100%" border="0" cellspacing="0" cellpadding="0"><td class="docBookTitle"><a href="toc.html"><b>[ Team Unknown ]</b></a></td></table><td align="center"><a name="MainContent"></a><table width="95%"><tr><td align="left" class="v2"><!--Copyright (c) 2002 Safari Tech Books Online--><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch05lev1sec5.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch05lev1sec7.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><div id="section"><br /><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top">C++ Programming Robert Sedgewick - Princeton University Addison Wesley Professional Algorithms in C++, Parts 1&ndash;4: Fundamentals, Data Structure, Sorting, Searching, Third Edition<a name="ch05lev1sec6"></a>
+<h3 id="title-IDA50YEI" class="docSection1Title">5.6. Tree Traversal</h3>
+<p class="docText">Before considering algorithms that construct binary trees and trees, we consider algorithms for the most basic tree-processing function: <span class="docEmphasis">tree traversal</span>: Given a pointer to a tree, we want to process every node in the tree systematically. In a linked list, we move from one node to the next by following the single link; for trees, however, we have decisions to make, because there may be multiple links to follow.</p>
+<p class="docText"></p><a name="ch05ex29"></a><h5 id="title-IDAS1YEI" class="docExampleTitle">Program 5.14. Recursive tree traversal</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText"><a name="iddle1657"></a><a name="iddle2083"></a><a name="iddle2091"></a><a name="iddle2267"></a><a name="iddle2528"></a><a name="iddle2531"></a>This recursive function takes a link to a tree as an argument and calls the function <tt>visit</tt> with each of the nodes in the tree as argument. As is, the function implements a preorder traversal; if we move the call to <tt>visit</tt> between the recursive calls, we have an inorder traversal; and if we move the call to <tt>visit</tt> after the recursive calls, we have a postorder traversal.</p>
+<div class="docText"><pre>void traverse(link h, void visit(link))
+  {
+    if (h == 0) return;
+    visit(h);
+    traverse(h-&gt;l, visit);
+    traverse(h-&gt;r, visit);
+  }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">We begin by considering the process for binary trees. For linked lists, we had two basic options (see <a class="docLink" href="ch05lev1sec1.html#ch05ex05">Program 5.5</a>): process the node and then follow the link (in which case we would visit the nodes in order), or follow the link and then process the node (in which case we would visit the nodes in reverse order). For binary trees, we have two links, and we therefore have three basic orders in which we might visit the nodes:</p>
+<ul><li><p class="docList"><span class="docEmphasis">Preorder</span>, where we visit the node, then visit the left and right subtrees</p></li><li><p class="docList"><span class="docEmphasis">Inorder</span>, where we visit the left subtree, then visit the node, then visit the right subtree</p></li><li><p class="docList"><span class="docEmphasis">Postorder</span>, where we visit the left and right subtrees, then visit the node</p></li></ul>
+<p class="docText">We can implement these methods easily with a recursive program, as shown in <a class="docLink" href="#ch05ex29">Program 5.14</a>, which is a direct generalization of the linked-list&ndash;traversal program in <a class="docLink" href="ch05lev1sec1.html#ch05ex05">Program 5.5</a>. To implement traversals in the other orders, we permute the function calls in <a class="docLink" href="#ch05ex29">Program 5.14</a> in the appropriate manner. <a class="docLink" href="#ch05fig26">Figure 5.26</a> shows the order in which we visit the nodes in a sample tree for each order. <a class="docLink" href="#ch05fig25">Figure 5.25</a> shows the sequence of function calls that is executed when we invoke <a class="docLink" href="#ch05ex29">Program 5.14</a> on the sample tree in <a class="docLink" href="#ch05fig26">Figure 5.26</a>.</p>
+<a name="ch05fig25"></a><p><center>
+<h5 class="docFigureTitle">Figure 5.25. Preorder-traversal function calls</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This sequence of function calls constitutes preorder traversal for the example tree in <a class="docLink" href="#ch05fig26">Figure 5.26</a>.</p>
+<p class="docText">
+<img border="0" alt="" width="140" height="427" src="05fig25.gif" /></p>
+<br />
+<p class="docText"></p><a name="ch05fig26"></a><p><center>
+<h5 class="docFigureTitle">Figure 5.26. Tree-traversal orders</h5>
+<h5></h5><h5></h5></center></p><p class="docText">These sequences indicate the order in which we visit nodes for pre-order <span class="docEmphasis">(left)</span>, inorder <span class="docEmphasis">(center)</span>, and postorder <span class="docEmphasis">(right)</span> tree traversal.</p>
+<p class="docText">
+<img border="0" alt="" width="375" height="581" src="05fig26.gif" /></p>
+<br />
+<p class="docText"><a name="iddle1658"></a><a name="iddle2084"></a><a name="iddle2092"></a><a name="iddle2145"></a><a name="iddle2532"></a>We have already encountered the same basic recursive processes on which the different tree-traversal methods are based, in divide-and-conquer recursive programs (see <a class="docLink" href="ch05lev1sec2.html#ch05fig08">Figures 5.8</a> and <a class="docLink" href="ch05lev1sec2.html#ch05fig11">5.11</a>), and in arithmetic expressions. For example, doing preorder traversal corresponds to drawing the marks on the ruler first, then making the recursive calls (see <a class="docLink" href="ch05lev1sec2.html#ch05fig11">Figure 5.11</a>); doing inorder traversal corresponds to moving the biggest disk in the towers of Hanoi solution in between recursive calls that move all of the others; doing postorder traversal corresponds to evaluating postfix expressions, and so forth. These correspondences give us immediate insight into the mechanisms behind tree traversal. For example, we know that every other node in an inorder traversal is an external node, for the same reason that every other move in the towers of Hanoi problem involves the small disk.</p>
+<p class="docText">It is also useful to consider nonrecursive implementations that use an explicit pushdown stack. For simplicity, we begin by considering an abstract stack that can hold items or trees, initialized with the tree to be traversed. Then, we enter into a loop, where we pop and process the top entry on the stack, continuing until the stack is empty. If the popped entity is an item, we visit it; if the popped entity is a tree, then we perform a sequence of push operations that depends on the desired ordering:</p>
+<p class="docText"></p><a name="ch05ex30"></a><h5 id="title-IDALEZEI" class="docExampleTitle">Program 5.15. Preorder traversal (nonrecursive)</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText"><a name="iddle1659"></a><a name="iddle2085"></a><a name="iddle2093"></a>This nonrecursive stack-based function is functionally equivalent to its recursive counterpart, <a class="docLink" href="#ch05ex29">Program 5.14</a>.</p>
+<div class="docText"><pre>void traverse(link h, void visit(link))
+  { STACK&lt;link&gt; s(max);
+    s.push(h);
+    while (!s.empty())
+      {
+        visit(h = s.pop());
+        if (h-&gt;r != 0) s.push(h-&gt;r);
+        if (h-&gt;l != 0) s.push(h-&gt;l);
+      }
+  }</pre></div><br />
+</td></tr></table></p>
+<ul><li><p class="docList">For <span class="docEmphasis">preorder</span>, we push the right subtree, then the left subtree, and then the node.</p></li><li><p class="docList">For <span class="docEmphasis">inorder</span>, we push the right subtree, then the node, and then the left subtree.</p></li><li><p class="docList">For <span class="docEmphasis">postorder</span>, we push the node, then the right subtree, and then the left subtree.</p></li></ul>
+<p class="docText">We do not push null trees onto the stack. <a class="docLink" href="#ch05fig27">Figure 5.27</a> shows the stack contents as we use each of these three methods to traverse the sample tree in <a class="docLink" href="#ch05fig26">Figure 5.26</a>. We can easily verify by induction that this method produces the same output as the recursive one for any binary tree.</p>
+<a name="ch05fig27"></a><p><center>
+<h5 class="docFigureTitle">Figure 5.27. Stack contents for tree-traversal algorithms</h5>
+<h5></h5><h5></h5></center></p><p class="docText">These sequences indicate the stack contents for preorder <span class="docEmphasis">(left)</span>, inorder <span class="docEmphasis">(center)</span>, and postorder <span class="docEmphasis">(right)</span> tree traversal (see <a class="docLink" href="#ch05fig26">Figure 5.26</a>), for an idealized model of the computation, similar to the one that we used in <a class="docLink" href="ch05lev1sec2.html#ch05fig05">Figure 5.5</a>, where we put the item and its two subtrees on the stack, in the indicated order.</p>
+<p class="docText">
+<img border="0" alt="" width="430" height="282" src="05fig27.gif" /></p>
+<br />
+<p class="docText">The scheme described in the previous paragraph is a conceptual one that encompasses the three traversal methods, but the implementations that we use in practice are slightly simpler. For example, for preorder, we do not need to push nodes onto the stack (we visit the root of each tree that we pop), and we therefore can use a simple stack that contains only one type of item (tree link), as in the nonrecursive implementation in <a class="docLink" href="#ch05ex30">Program 5.15</a>. The system stack that supports the recursive program contains return addresses and argument values, rather than items or nodes, but the actual sequence in which we do the computations (visit the nodes) is the same for the recursive and the stack-based methods.</p>
+<p class="docText"></p><a name="ch05ex31"></a><h5 id="title-IDA4IZEI" class="docExampleTitle">Program 5.16. Level-order traversal</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText"><a name="iddle1761"></a><a name="iddle2162"></a>Switching the underlying data structure in preorder traversal (see <a class="docLink" href="#ch05ex30">Program 5.15</a>) from a stack to a queue transforms the traversal into a level-order one.</p>
+<div class="docText"><pre>void traverse(link h, void visit(link))
+  { QUEUE&lt;link&gt; q(max);
+    q.put(h);
+    while (!q.empty())
+      {
+        visit(h = q.get());
+        if (h-&gt;l != 0) q.put(h-&gt;l);
+        if (h-&gt;r != 0) q.put(h-&gt;r);
+      }
+  }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">A fourth natural traversal strategy is simply to visit the nodes in a tree as they appear on the page, reading down from top to bottom and from left to right. This method is called <span class="docEmphasis">level-order</span> traversal because all the nodes on each level appear together, in order. <a class="docLink" href="#ch05fig28">Figure 5.28</a> shows how the nodes of the tree in <a class="docLink" href="#ch05fig26">Figure 5.26</a> are visited in level order.</p>
+<a name="ch05fig28"></a><p><center>
+<h5 class="docFigureTitle">Figure 5.28. Level-order traversal</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This sequence depicts the result of visiting nodes in order from top to bottom and left to right in the tree.</p>
+<p class="docText">
+<img border="0" alt="" width="135" height="539" src="05fig28.gif" /></p>
+<br />
+<p class="docText">Remarkably, we can achieve level-order traversal by substituting a queue for the stack in <a class="docLink" href="#ch05ex30">Program 5.15</a>, as shown in <a class="docLink" href="#ch05ex31">Program 5.16</a>. For preorder, we use a LIFO data structure; for level order, we use a FIFO data structure. These programs merit careful study, because they represent approaches to organizing work remaining to be done that differ in an essential way. In particular, level order does <span class="docEmphasis">not</span> correspond to a recursive implementation that relates to the recursive structure of the tree.</p>
+<p class="docText">Preorder, postorder, and level order are well defined for forests as well. To make the definitions consistent, think of a forest as a tree with an imaginary root. Then, the preorder rule is &quot;visit the root, then visit each of the subtrees,&quot; the postorder rule is &quot;visit each of the subtrees, then visit the root.&quot; The level-order rule is the same as for binary trees. Direct implementations of these methods are straightforward generalizations of the stack-based preorder traversal programs (<a class="docLink" href="#ch05ex29">Programs 5.14</a> and <a class="docLink" href="#ch05ex30">5.15</a>) and the queue-based level-order traversal program (<a class="docLink" href="#ch05ex31">Program 5.16</a>) for binary trees that we just considered. We <a name="iddle1216"></a><a name="iddle2234"></a>omit consideration of implementations because we consider a more general procedure in <a class="docLink" href="ch05lev1sec8.html#ch05lev1sec8">Section 5.8</a>.</p>
+<p class="docQandasetTitle">Exercises</p><p><table border="0" cellspacing="16" cellpadding="0"><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa6q1"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">5.79</span> Give preorder, inorder, postorder, and level-order traversals of the following binary trees:</p>
+<p class="docText"><img border="0" alt="" width="375" height="51" src="249fig01.gif" /></p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa6q2"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">5.80</span> Show the contents of the queue during the level order traversal (<a class="docLink" href="#ch05ex31">Program 5.16</a>) depicted in <a class="docLink" href="#ch05fig28">Figure 5.28</a>, in the style of <a class="docLink" href="#ch05fig27">Figure 5.27</a>.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa6q3"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">5.81</span> Show that preorder for a forest is the same as preorder for the corresponding binary tree (see <a class="docLink" href="ch05lev1sec4.html#ch05ex20">Property 5.4</a>), and that postorder for a forest is the same as inorder for the binary tree.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa6q4"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">5.82</span> Give a nonrecursive implementation of inorder traversal.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa6q5"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">5.83</span> Give a nonrecursive implementation of postorder traversal.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa6q6"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">5.84</span> Write a program that takes as input the preorder and inorder traversals of a binary tree, and produces as output the level-order traversal of the tree.</p></td></tr></table></p>
+<ul></ul></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch05lev1sec5.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch05lev1sec7.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="top" align="right"><span style="white-space:nowrap"><a target="_self" href="#toppage" title="Top"></a></span></td></tr></table></div><!--IP User 2--></td></tr></table></td></body></head></html>

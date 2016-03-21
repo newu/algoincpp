@@ -1,0 +1,127 @@
+<html><head><title>4.3. Examples of Stack ADT Clients</title><title>TeamUnknown</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/globalstyle.css" /><link href="includes/searchResults.css" rel="stylesheet" type="text/css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/style.css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/docsafari.css" /><body><table width="100%" border="0" cellspacing="0" cellpadding="0"><td class="docBookTitle"><a href="toc.html"><b>[ Team Unknown ]</b></a></td></table><td align="center"><a name="MainContent"></a><table width="95%"><tr><td align="left" class="v2"><!--Copyright (c) 2002 Safari Tech Books Online--><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch04lev1sec2.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch04lev1sec4.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><div id="section"><br /><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top"><a href="17051538.html"><img src="pixel.gif" alt="" width="1" height="1" border="0" /></a>C++ Programming Robert Sedgewick - Princeton University Addison Wesley Professional Algorithms in C++, Parts 1&ndash;4: Fundamentals, Data Structure, Sorting, Searching, Third Edition<a name="ch04lev1sec3"></a>
+<h3 id="title-IDA2VZBC" class="docSection1Title">4.3. Examples of Stack ADT Clients</h3>
+<p class="docText">We shall see a great many applications of stacks in the chapters that follow. As an introductory example, we now consider the use of stacks for evaluating arithmetic expressions. For example, suppose that we need to find the value of a simple arithmetic expression involving multiplication and addition of integers, such as</p>
+<div class="docText"><pre>5 * ( ( ( 9 + 8 ) * ( 4 * 6 ) ) + 7 )</pre></div><br />
+<p class="docText">The calculation involves saving intermediate results: For example, if we calculate <tt>9 + 8</tt> first, then we have to save the result <tt>17</tt> while, say, we compute <tt>4 * 6</tt>. A pushdown stack is the ideal mechanism for saving intermediate results in such a calculation.</p>
+<p class="docText">We begin by considering a simpler problem, where the expression that we need to evaluate is in a form where each operator appears <span class="docEmphasis">after</span> its two arguments, rather than between them. As we shall see, any arithmetic expression can be arranged in this form, which is called <a name="iddle1651"></a><a name="iddle2079"></a><a name="iddle2089"></a><span class="docEmphasis">postfix</span>, by contrast with <span class="docEmphasis">infix</span>, the customary way of writing arithmetic expressions. The postfix representation of the expression in the previous paragraph is</p>
+<div class="docText"><pre>5 9 8 + 4 6 * * 7 + *</pre></div><br />
+<p class="docText">The reverse of postfix is called <span class="docEmphasis">prefix</span>, or <span class="docEmphasis">Polish notation</span> (because it was invented by the Polish logician Lukasiewicz).</p>
+<p class="docText">In infix, we need parentheses to distinguish, for example,</p>
+<div class="docText"><pre>5 * ( ( ( 9 + 8 ) * ( 4 * 6 ) ) + 7 )</pre></div><br />
+<p class="docText">from</p>
+<div class="docText"><pre>( ( 5 * 9 ) + 8 ) * ( ( 4 * 6 ) + 7 )</pre></div><br />
+<p class="docText">but parentheses are unnecessary in postfix (or prefix). To see why, we can consider the following process for converting a postfix expression to an infix expression: We replace all occurrences of two operands followed by an operator by their infix equivalent, with parentheses, to indicate that the result can be considered to be an operand. That is, we replace any occurrence of <tt>a b *</tt> and <tt>a b +</tt> by <tt>(a * b)</tt> and <tt>(a + b)</tt>, respectively. Then, we perform the same transformation on the resulting expression, continuing until all the operators have been processed. For our example, the transformation happens as follows:</p>
+<div class="docText"><pre>5 9 8 + 4 6 * * 7 + *
+5 ( 9 + 8 ) ( 4 * 6 ) * 7 + *
+5 ( ( 9 + 8 ) * ( 4 * 6 ) ) 7 + *
+5 ( ( ( 9 + 8 ) * ( 4 * 6 ) ) + 7 ) *
+( 5 * ( ( ( 9 + 8 ) * ( 4 * 6 ) ) + 7 ) )</pre></div><br />
+<p class="docText">We can determine the operands associated with any operator in the postfix expression in this way, so no parentheses are necessary.</p>
+<p class="docText">Alternatively, with the aid of a stack, we can actually perform the operations and evaluate any postfix expression, as illustrated in <a class="docLink" href="#ch04fig02">Figure 4.2</a>. Moving from left to right, we interpret each operand as the command to &quot;push the operand onto the stack,&quot; and each operator as the commands to &quot;pop the two operands from the stack, perform the operation, and push the result.&quot; <a class="docLink" href="#ch04ex07">Program 4.5</a> is a C++ implementation of this process. Note that, since the stack ADT is templatized, we can easily use the same code to build a stack of integers in this program and a stack of characters in <a class="docLink" href="#ch04ex08">Program 4.6</a>.</p>
+<a name="ch04fig02"></a><p><center>
+<h5 class="docFigureTitle">Figure 4.2. Evaluation of a postfix expression</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This sequence shows the use of a stack to evaluate the postfix expression <span class="docEmphasis">5 9 8 + 4 6 * * 7 + *</span>. Proceeding from left to right through the expression, if we encounter a number, we push it on the stack; and if we encounter an operator, we push the result of applying the operator to the top two numbers on the stack.</p>
+<p class="docText">
+<img border="0" alt="" width="150" height="168" src="04fig02.gif" /></p>
+<br />
+<p class="docText">Postfix notation and an associated pushdown stack give us a natural way to organize a series of computational procedures. Some <a name="iddle1751"></a><a name="iddle2086"></a>calculators and some computing languages explicitly base their method of calculation on postfix and stack operations&mdash;every operation pops its arguments from the stack and returns its results to the stack.</p>
+<a name="ch04ex07"></a><h5 id="title-IDA01ZBC" class="docExampleTitle">Program 4.5. Postfix-expression evaluation</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">This pushdown-stack client reads any postfix expression involving multiplication and addition of integers, then evaluates the expression and prints the computed result. It saves intermediate results on a stack of integers, assuming that the interface of <a class="docLink" href="ch04lev1sec2.html#ch04ex06">Program 4.4</a> is implemented as a templatized class in the file <tt>STACK.cxx</tt>.</p>
+<p class="docText">When we encounter operands, we push them on the stack; when we encounter operators, we pop the top two entries from the stack and push the result of applying the operator to them. The order in which the two <tt>pop()</tt> operations are performed in the expressions in this code is unspecified in C++, so the code for noncommutative operators such as subtraction or division would be slightly more complicated.</p>
+<p class="docText">The program implicitly assumes that the integers and operators are delimited by other characters of some kind (blanks, say), but does not check the legality of the input at all. The final <tt>if</tt> statement and the <tt>while</tt> loop perform a calculation similar to the C++ <tt>atoi</tt> function, which converts integers from ASCII strings to integers for calculation. When we encounter a new digit, we multiply the accumulated result by 10 and add the digit.</p>
+<div class="docText"><pre>#include &lt;iostream.h&gt;
+#include &lt;string.h&gt;
+#include "STACK.cxx"
+int main(int argc, char *argv[])
+  { char *a = argv[1]; int N = strlen(a);
+    STACK&lt;int&gt; save(N);
+    for (int i = 0; i &lt; N; i++)
+      {
+        if (a[i] == '+')
+          save.push(save.pop() + save.pop());
+        if (a[i] == '*')
+          save.push(save.pop() * save.pop());
+        if ((a[i] &gt;= '0') &amp;&amp; (a[i] &lt;= [']9[']))
+          save.push(0);
+        while ((a[i] &gt;= '0') &amp;&amp; (a[i] &lt;= [']9[']))
+          save.push(10*save.pop() + (a[i++]-'0'));
+      }
+    cout &lt;&lt; save.pop() &lt;&lt; endl;
+   }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">One example of such a language is the PostScript language, which is used to print this book. It is a complete programming language where programs are written in postfix and are interpreted with the aid of an internal stack, precisely as in <a class="docLink" href="#ch04ex07">Program 4.5</a>. Although we cannot cover all the aspects of the language here (<span class="docEmphasis">see reference section</span>), it is sufficiently simple that we can study some actual programs, to appreciate the utility of the postfix notation and the pushdown-stack abstraction. For example, the string</p>
+<div class="docText"><pre>5 9 8 add 4 6 mul mul 7 add mul</pre></div><br />
+<p class="docText">is a PostScript program! Programs in PostScript consist of operators (such as <tt>add</tt> and <tt>mul</tt>) and operands (such as integers). As we did in <a class="docLink" href="#ch04ex07">Program 4.5</a> we interpret a program by reading it from left to right: If we encounter an operand, we push it onto the stack; if we encounter an operator, we pop its operands (if any) from the stack and push the result (if any). Thus, the execution of this program is fully described by <a class="docLink" href="#ch04fig02">Figure 4.2</a>: The program leaves the value <tt>2075</tt> on the stack.</p>
+<p class="docText">PostScript has a number of primitive functions that serve as instructions to an abstract plotting device; we can also define our own functions. These functions are invoked with arguments on the stack in the same way as any other function. For example, the PostScript code</p>
+<div class="docText"><pre>0 0 moveto 144 hill 0 72 moveto 72 hill stroke</pre></div><br />
+<p class="docText">corresponds to the sequence of actions &quot;call <tt>moveto</tt> with arguments <tt>0</tt> and <tt>0</tt>, then call <tt>hill</tt> with argument <tt>144</tt>,&quot; and so forth. Some operators refer directly to the stack itself. For example the operator <tt>dup</tt> duplicates the entry at the top of the stack so, for example, the PostScript code</p>
+<div class="docText"><pre>144 dup 0 rlineto 60 rotate dup 0 rlineto</pre></div><br />
+<p class="docText">corresponds to the sequence of actions &quot;call <tt>rlineto</tt> with arguments <tt>144</tt> and <tt>0</tt>, then call <tt>rotate</tt> with argument <tt>60</tt>, then call <tt>rlineto</tt> with arguments <tt>144</tt> and <tt>0</tt>,&quot; and so forth. The PostScript program in <a class="docLink" href="#ch04fig03">Figure 4.3</a> defines and uses the function <tt>hill</tt>. Functions in PostScript are like macros: Thesequence <tt>/hill { A } def</tt> makes the name <tt>hill</tt> equivalent to the operator sequence inside the braces. <a class="docLink" href="#ch04fig03">Figure 4.3</a> is an <a name="iddle1652"></a><a name="iddle2138"></a>example of a PostScript program that defines a function and draws a simple diagram.</p>
+<a name="ch04fig03"></a><p><center>
+<h5 class="docFigureTitle">Figure 4.3. Sample PostScript program</h5>
+<h5></h5><h5></h5></center></p><p class="docText">The diagram at the top was drawn by the PostScript program below it. The program is a postfix expression that uses the built-in functions <span class="docEmphasis">moveto</span>, <span class="docEmphasis">rlineto</span>, <span class="docEmphasis">rotate</span>, <span class="docEmphasis">stroke</span> and <span class="docEmphasis">dup</span>; and the user-defined function <span class="docEmphasis">hill</span> (see text). The graphics commands are instructions to a plotting device: <span class="docEmphasis">moveto</span> instructs that device to go to the specified position on the page (coordinates are in points, which are 1/72 inch); <span class="docEmphasis">rlineto</span> instructs it to move to the specified position in coordinates relative to its current position, adding the line it makes to its current path; <span class="docEmphasis">rotate</span> instructs it to turn left the specified number of degrees; and <span class="docEmphasis">stroke</span> instructs it to draw the path that it has traced.</p>
+<p class="docText">
+<img border="0" alt="" width="175" height="367" src="04fig03.gif" /></p>
+<br />
+<p class="docText">In the present context, our interest in PostScript is that this widely used programming language is based on the pushdown-stack abstraction. Indeed, many computers implement basic stack operations in hardware because they naturally implement a function-call mechanism: Save the current environment on entry to a procedure by pushing information onto a stack; restore the environment on exit by using information popped from the stack. As we see in <a class="docLink" href="ch05.html#ch05">Chapter 5</a>, this connection between pushdown stacks and programs organized as functions that call functions is an essential paradigm of computation.</p>
+<p class="docText">Returning to our original problem, we can also use a pushdown stack to convert fully parenthesized arithmetic expressions from infix to postfix, as illustrated in <a class="docLink" href="#ch04fig04">Figure 4.4</a>. For this computation, we push the <span class="docEmphasis">operators</span> onto a stack, and simply pass the operands through to the output. Then, each right parenthesis indicates that both arguments for the last operator have been output, so the operator itself can be popped and output.</p>
+<a name="ch04fig04"></a><p><center>
+<h5 class="docFigureTitle">Figure 4.4. Conversion of an infix expression to postfix</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This sequence shows the use of a stack to convert the infix expression <span class="docEmphasis">(5*(((9+8)*(4*6))+7))</span> to its postfix form <span class="docEmphasis">5 9 8 + 4 6 * * 7 + *</span>. We proceed from left to right through the expression: If we encounter a number, we write it to the output; if we encounter a left parenthesis, we ignore it; if we encounter an operator, we push it on the stack; and if we encounter a right parenthesis, we write the operator at the top of the stack to the output.</p>
+<p class="docText">
+<img border="0" alt="" width="100" height="326" src="04fig04.gif" /></p>
+<br />
+<p class="docText"><a class="docLink" href="#ch04ex08">Program 4.6</a> is an implementation of this process. Note that arguments appear in the postfix expression in the same order as in the infix expression. It is also amusing to note that the left parentheses are not needed in the infix expression. The left parentheses would be required, however, if we could have operators that take differing numbers of operands (see <a class="docLink" href="#ch04qa4q3">Exercise 4.14</a>).</p>
+<p class="docText">In addition to providing two different examples of the use of the pushdown-stack abstraction, the entire algorithm that we have developed in this section for evaluating infix expressions is itself an exercise in abstraction. First, we convert the input to an intermediate representation (postfix). Second, we simulate the operation of an abstract stack-based machine to interpret and evaluate the expression. This same schema is followed by many modern programming-language translators, for efficiency and portability: The problem of compiling a C++ program for a particular computer is broken into two tasks centered around an intermediate representation, so that the problem of translating the program is separated from the problem of executing that program, just as we have done in this section. We shall see a related, but different, intermediate representation in <a class="docLink" href="ch05lev1sec7.html#ch05lev1sec7">Section 5.7</a>.</p>
+<p class="docText"></p><a name="ch04ex08"></a><h5 id="title-IDANF0BC" class="docExampleTitle">Program 4.6. Infix-to-postfix conversion</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">This program is another example of a pushdown-stack client. In this case, the stack contains characters. To convert <tt>(A+B)</tt> to the postfix form <tt>AB+</tt>, we ignore the left parenthesis, convert <tt>A</tt> to postfix, save the <tt>+</tt> on the stack, convert <tt>B</tt> to postfix, then, on encountering the right parenthesis, pop the stack and output the <tt>+</tt>.</p>
+<div class="docText"><pre>#include &lt;iostream.h&gt;
+#include &lt;string.h&gt;
+#include "STACK.cxx"
+int main(int argc, char *argv[])
+  { char *a = argv[1]; int N = strlen(a);
+    STACK&lt;char&gt; ops(N);
+    for (int i = 0; i &lt; N; i++)
+      {
+        if (a[i] == ')')
+          cout &lt;&lt; ops.pop() &lt;&lt; " ";
+        if ((a[i] == '+') || (a[i] == '*'))
+          ops.push(a[i]);
+        if ((a[i] &gt;= '0') &amp;&amp; (a[i] &lt;= '9'))
+          cout &lt;&lt; a[i] &lt;&lt; " ";
+      }
+    cout &lt;&lt; endl;
+}</pre></div><br />
+</td></tr></table></p>
+<p class="docText">This application also illustrates the value of ADTs and C++ templates. Not only do we use two different stacks, but also one of the stacks holds objects of type <tt>char</tt> (operators), whereas the other holds objects of type <tt>int</tt> (operands). With the templatized-class ADT defined in <a class="docLink" href="ch04lev1sec2.html#ch04ex06">Program 4.4</a>, we could even combine both of the clients just considered into one program (see <a class="docLink" href="#ch04qa4q8">Exercise 4.19</a>). While this solution is very attractive, we should be aware that it might not be the approach of choice, because different implementations may have different performance characteristics, so we might not wish to decide a priori that one implementation will serve both purposes. Indeed, our main focus is on the implementations and their performance, and we turn now to those topics for pushdown stacks.</p>
+<p class="docQandasetTitle">Exercises</p><p><table border="0" cellspacing="16" cellpadding="0"><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q1"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">4.12</span> Convert to postfix the expression</p>
+<div class="docText"><pre>( 5 * ( ( 9 * 8 ) + ( 7 * ( 4 + 6 ) ) ) ) .</pre></div><br /></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q2"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">4.13</span> Give, in the same manner as <a class="docLink" href="#ch04fig02">Figure 4.2</a>, the contents of the stack as the following expression is evaluated by <a class="docLink" href="#ch04ex07">Program 4.5</a></p>
+<div class="docText"><pre>5 9 * 8 7 4 6 + * 2 1 3 * + * + * .</pre></div><br /></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q3"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">4.14</span> Extend <a class="docLink" href="#ch04ex07">Programs 4.5</a> and <a class="docLink" href="#ch04ex08">4.6</a> to include the <tt>-</tt> (subtract) and <tt>/</tt> (divide) operations.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q4"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.15</span> Extend your solution to <a class="docLink" href="#ch04qa4q3">Exercise 4.14</a> to include the unary operators <tt>-</tt> (negation) and <tt>$</tt> (square root). Also, modify the abstract stack machine in <a class="docLink" href="#ch04ex07">Program 4.5</a> to use floating point. For example, given the expression</p>
+<div class="docText"><pre>(-(-1) + $((-1) * (-1)-(4 * (-1))))/2</pre></div><br />
+<p class="docText">your program should print the value 1.618034.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q5"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.16</span> Write a PostScript program that draws this figure:</p>
+<p class="docText">
+<img border="0" alt="" width="40" height="14" src="153fig01.jpg" /></p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q6"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">4.17</span> Prove by induction that <a class="docLink" href="#ch04ex07">Program 4.5</a> correctly evaluates any postfix expression.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q7"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">4.18</span> Write a program that converts a postfix expression to infix, using a pushdown stack.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q8"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">4.19</span> Combine <a class="docLink" href="#ch04ex07">Program 4.5</a> and <a class="docLink" href="#ch04ex08">Program 4.6</a> into a single module that uses two different stack ADTs: a stack of integers and a stack of operators.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa4q9"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="17" height="8" src="douleblackcircle.jpg" /> <span class="docEmphStrong">4.20</span> Implement a compiler and interpreter for a programming language where each program consists of a single arithmetic expression preceded by a sequence of assignment statements with arithmetic expressions involving integers and variables named with single lower-case characters. For example, given the input</p>
+<div class="docText"><pre>(x = 1)
+(y = (x + 1))
+(((x + y) * 3) + (4 * x))</pre></div><br />
+<p class="docText">your program should print the value 13.</p></td></tr></table></p>
+<a href="17051538.html"><img src="pixel.gif" alt="" width="1" height="1" border="0" /></a><ul></ul></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch04lev1sec2.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch04lev1sec4.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="top" align="right"><span style="white-space:nowrap"><a target="_self" href="#toppage" title="Top"></a></span></td></tr></table></div><!--IP User 2--></td></tr></table></td></body></head></html>

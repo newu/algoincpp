@@ -1,0 +1,117 @@
+<html><head><title>4.9. Application-Based ADT Example</title><title>TeamUnknown</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/globalstyle.css" /><link href="includes/searchResults.css" rel="stylesheet" type="text/css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/style.css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/docsafari.css" /><body><table width="100%" border="0" cellspacing="0" cellpadding="0"><td class="docBookTitle"><a href="toc.html"><b>[ Team Unknown ]</b></a></td></table><td align="center"><a name="MainContent"></a><table width="95%"><tr><td align="left" class="v2"><!--Copyright (c) 2002 Safari Tech Books Online--><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch04lev1sec8.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch04lev1sec10.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><div id="section"><br /><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top"><a href="17051538.html"><img src="pixel.gif" alt="" width="1" height="1" border="0" /></a>C++ Programming Robert Sedgewick - Princeton University Addison Wesley Professional Algorithms in C++, Parts 1&ndash;4: Fundamentals, Data Structure, Sorting, Searching, Third Edition<a name="ch04lev1sec9"></a>
+<h3 id="title-IDAX1P3H" class="docSection1Title">4.9. Application-Based ADT Example</h3>
+<p class="docText">As a final example, we consider in this section an application-specific ADT that is representative of the relationship between application domains and the algorithms and data structures of the type that we consider in this book. The example that we shall consider is the <span class="docEmphasis">polynomial</span> ADT. It is drawn from <span class="docEmphasis">symbolic mathematics</span>, where we use the computer to help us manipulate abstract mathematical objects.</p>
+<p class="docText">Our goal is to be able to write programs that can manipulate polynomials, and perform computations such as</p>
+<p class="docText">
+<img border="0" alt="" width="500" height="38" src="192equ01.jpg" /></p>
+<p class="docText">We also want to be able to evaluate the polynomial for a given value of <span class="docEmphasis">x</span>. For <tt>x = 0.5</tt>, both sides of this equation have the value <tt>1.1328125</tt>.</p>
+<p class="docText"></p><a name="ch04ex29"></a><h5 id="title-IDAD3P3H" class="docExampleTitle">Program 4.23. Polynomial client (binomial coefficients)</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">This client program uses the polynomial ADT that is defined in the interface <a class="docLink" href="#ch04ex30">Program 4.24</a> to perform algebraic manipulations on polynomials with integer coefficients. It takes an integer <span class="docEmphasis">N</span> and a floating-point number <tt>p</tt> from the command line, computes <tt>(x + 1)<sup>N</sup></tt>, and checks the result by evaluating the resulting polynomial at <tt>x = p</tt>.</p>
+<div class="docText"><pre>#include &lt;iostream.h&gt;
+#include &lt;stdlib.h&gt;
+#include "POLY.cxx"
+int main(int argc, char *argv[])
+  { int N = atoi(argv[1]); float p = atof(argv[2]);
+    cout &lt;&lt; "Binomial coefficients" &lt;&lt; endl;
+    POLY&lt;int&gt; x(1,1), one(1,0), t = x + one, y = t;
+    for (int i = 0; i &lt; N; i++)
+         { y = y*t; cout &lt;&lt; y &lt;&lt; endl; }
+    cout &lt;&lt; y.eval(p) &lt;&lt; endl;
+  }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">The operations of multiplying, adding, and evaluating polynomials are at the heart of a great many mathematical calculations. <a class="docLink" href="#ch04ex29">Program 4.23</a> is a simple example that performs the symbolic operations corresponding to the polynomial equations</p>
+<div class="docText"><pre>(x + 1)<sup>2</sup> = x<sup>2</sup> + 2x + 1;
+(x + 1)<sup>3</sup> = x<sup>3</sup> + 3x<sup>2</sup> + 3x + 1;
+(x + 1)<sup>4</sup> = x<sup>4</sup> + 4x<sup>3</sup> + 6x<sup>2</sup> + 4x + 1;
+(x + 1)<sup>5</sup> = x<sup>5</sup> + 5x<sup>4</sup> + 10x<sup>3</sup> + 10x<sup>2</sup> + 5x + 1;
+       . . . .</pre></div><br />
+<p class="docText">The same basic ideas extend to include operations such as composition, integration, differentiation, knowledge of special functions, and so forth.</p>
+<p class="docText">The first step is to define the polynomial ADT, as illustrated in the interface <a class="docLink" href="#ch04ex30">Program 4.24</a>. For a well-understood mathematical abstraction such as a polynomial, the specification is so clear as to be unspoken (in the same way as for the ADT for complex numbers that we discussed in <a class="docLink" href="ch04lev1sec8.html#ch04lev1sec8">Section 4.8</a>): We want instances of the ADT to behave precisely in the same manner as the well-understood mathematical abstraction.</p>
+<p class="docText">To implement the functions defined in the interface, we need to choose a particular data structure to represent polynomials and then to implement algorithms that manipulate the data structure to produce the behavior that client programs expect from the ADT. As usual, the choice of data structure affects the potential efficiency of the algorithms, and we are free to consider several. As with stacks and queues, we have the choice of using a linked representation or an array representation. <a class="docLink" href="#ch04ex31">Program 4.25</a> is an implementation using an array representation; the linked-list representation is left as an exercise (see <a class="docLink" href="#ch04qa10q1">Exercise 4.78</a>).</p>
+<p class="docText">To <span class="docEmphasis">add</span> two polynomials, we add their coefficients. If the polynomials are represented as arrays, the <span class="docEmphasis">add</span> function amounts to a single loop through the arrays, as shown in <a class="docLink" href="#ch04ex31">Program 4.25</a>. To <span class="docEmphasis">multiply</span> two polynomials, we use the elementary algorithm based on the distributive law. We multiply one polynomial by each term in the other, line up the results so that powers of <tt>x</tt> match, then add the terms to get the final result. The following table summarizes the computation for(1-<span class="docEmphasis">x</span>+<span class="docEmphasis">x</span><sup>2</sup>/2-<span class="docEmphasis">x</span><sup>3</sup>/6)(1+<span class="docEmphasis">x</span>+<span class="docEmphasis">x</span><sup>2</sup>+<span class="docEmphasis">x</span><sup>3</sup>):</p>
+<p class="docText">
+<img border="0" alt="" width="344" height="266" src="194equ01.jpg" /></p>
+<p class="docText">The computation seems to require time proportional to <tt>N<sup>2</sup></tt> to multiply two polynomials. Finding a faster algorithm for this task is a significant challenge. We shall consider this topic in detail in Part 8, where we shall see that it is possible to accomplish the task in time proportional to <tt>N<sup>3</sup> = 2</tt> using a divide-and-conquer algorithm, and in time proportional to <span class="docEmphasis">N</span> <tt>lg</tt> <span class="docEmphasis">N</span> using the fast Fourier transform.</p>
+<p class="docText"></p><a name="ch04ex30"></a><h5 id="title-IDA5CQ3H" class="docExampleTitle">Program 4.24. ADT interface for polynomials</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText"><a name="iddle1622"></a>This interface for a polynomial ADT uses a template to allow different types to be used for coefficients. It overloads the binary operators <tt>+</tt> and <tt>*</tt>, so that client code can use polynomials in arithmetic expressions involving these operators. The constructor, when invoked with arguments <tt>c</tt> and <span class="docEmphasis">N</span>, creates a polynomial corresponding to <tt>cx<sup>N</sup></tt>.</p>
+<div class="docText"><pre>template &lt;class Number&gt;
+class POLY
+  {
+    private:
+      // Implementation-dependent code
+   public:
+     POLY&lt;Number&gt;(Number, int);
+     float eval(float) const;
+     friend POLY operator+(POLY &amp;, POLY &amp;);
+     friend POLY operator*(POLY &amp;, POLY &amp;);
+  };</pre></div><br />
+</td></tr></table></p>
+<p class="docText">The implementation of the <span class="docEmphasis">evaluate</span> function in <a class="docLink" href="#ch04ex31">Program 4.25</a> uses a classic efficient algorithm known as <span class="docEmphasis">Horner's algorithm</span>. A naive implementation of the function involves a direct computation using a function that computes <tt>x<sup>N</sup></tt>. This approach takes quadratic time. A less naive implementation involves saving the values of <tt>x<sup>i</sup></tt> in a table, then using them in a direct computation. This approach takes linear extra space. Horner's algorithm is a direct optimal linear algorithm based on parenthesizations such as</p>
+<div class="docText"><pre>a4x<sup>4</sup> + a<sub>3</sub>x<sup>3</sup> + a<sub>2</sub>x<sup>2</sup> + a<sub>1</sub>x + a<sub>0</sub> = (((a<sub>4</sub>x + a<sub>3</sub> )x + a<sub>2</sub> )x + a<sub>1</sub> )x + a<sub>0</sub>:</pre></div><br />
+<p class="docText">Horner's method is often presented as a time-saving trick, but it is actually an early and outstanding example of an elegant and efficient algorithm, which reduces the time required for this essential computational task from quadratic to linear. The calculation that we performed in <a class="docLink" href="ch04lev1sec3.html#ch04ex07">Program 4.5</a> for converting ASCII strings to integers is a version of Horner's algorithm. We shall encounter Horner's algorithm again, in <a class="docLink" href="ch14.html#ch14">Chapter 14</a> and Part 5, as the basis for an important computation related to certain symbol-table and string-search implementations.</p>
+<p class="docText"></p><a name="ch04ex31"></a><h5 id="title-IDARGQ3H" class="docExampleTitle">Program 4.25. Array implementation of polynomial ADT</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText"><a name="iddle1091"></a>In this implementation of an ADT for polynomials, the data representation consists of the degree and a pointer to an array of coefficients. It is not a first-class ADT: clients must be aware of memory leaks and pointer-assignment copy semantics (see <a class="docLink" href="#ch04qa10q2">Exercise 4.79</a>).</p>
+<div class="docText"><pre>template &lt;class Number&gt;
+class POLY
+  {
+    private:
+      int n; Number *a;
+    public:
+      POLY&lt;Number&gt;(Number c, int N)
+        { a = new Number[N+1]; n = N+1; a[N] = c;
+          for (int i = 0; i &lt; N; i++) a[i] = 0;
+        }
+      float eval(float x) const
+        { double t = 0.0;
+          for (int i = n-1; i &gt;= 0; i--)
+            t = t*x + a[i];
+          return t;
+        }
+      friend POLY operator+(POLY &amp;p, POLY &amp;q)
+        { POLY t(0, p.n&gt;q.n ? p.n-1 : q.n-1);
+          for (int i = 0; i &lt; p.n; i++)
+            t.a[i] += p.a[i];
+          for (int j = 0; j &lt; q.n; j++) t.a[j] += q.a[j];
+          return t;
+        }
+      friend POLY operator*(POLY &amp;p, POLY &amp;q)
+        { POLY t(0, (p.n-1)+(q.n-1));
+          for (int i = 0; i &lt; p.n; i++)
+            for (int j = 0; j &lt; q.n; j++)
+              t.a[i+j] += p.a[i]*q.a[j];
+            return t;
+       }
+  };</pre></div><br />
+</td></tr></table></p>
+<p class="docText">The overloaded <tt>+</tt> and <tt>*</tt> operators construct new polynomials to hold their results, so this implementation has memory leaks. We can easily plug these leaks by implementing a copy constructor, overloaded assignment operator, and a destructor, which we would do if we were processing huge polynomials, or processing huge numbers of small ones, or building an ADT for use in an applications system (see <a class="docLink" href="#ch04qa10q2">Exercise 4.79</a>).</p>
+<p class="docText">As usual, the array representation for implementing the polynomial ADT is but one possibility. If exponents are huge and there are not many terms, a linked-list representation might be more appropriate. For example, we would not want to use <a class="docLink" href="#ch04ex31">Program 4.25</a> to perform a multiplication such as</p>
+<div class="docText"><pre>(1 + x<sup>1000000</sup> )(1 + x<sup>2000000</sup> ) = 1 + x<sup>1000000</sup> + x<sup>2000000</sup> + x<sup>3000000</sup>;</pre></div><br />
+<p class="docText">because it would use an array with space for millions of unused coefficients. <a class="docLink" href="#ch04qa10q1">Exercise 4.78</a> explores the linked-list option in more detail.</p>
+<p class="docQandasetTitle">Exercises</p><p><table border="0" cellspacing="16" cellpadding="0"><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q1"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">4.78</span> Provide an implementation for the polynomial ADT given in the text (<a class="docLink" href="#ch04ex30">Program 4.24</a>) that uses linked lists as the underlying data structure. Your lists should not contain any nodes corresponding to terms with coefficient value 0.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q2"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">4.79</span> Plug the memory leaks in <a class="docLink" href="#ch04ex31">Program 4.25</a> by adding a copy constructor, overloaded assignment operator, and a destructor.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q3"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">4.80</span> Add overloaded operators <tt>+=</tt> and <tt>*=</tt> to the polynomial ADT in <a class="docLink" href="#ch04ex31">Program 4.25</a>.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q4"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">4.81</span> Extend the polynomial ADT given in the text to include integration and differentiation of polynomials.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q5"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.82</span> Modify your polynomial ADT from <a class="docLink" href="#ch04qa10q4">Exercise 4.81</a> to ignore all terms with exponents greater than or equal to an integer <tt>M</tt>, which is provided by the client at initialization.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q6"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="17" height="8" src="douleblackcircle.jpg" /> <span class="docEmphStrong">4.83</span> Extend your polynomial ADT from <a class="docLink" href="#ch04qa10q4">Exercise 4.81</a> to include polynomial division and composition.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q7"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">4.84</span> Develop an ADT that allows clients to perform addition and multiplication of arbitrarily long integers.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q8"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">4.85</span> Modify the postfix-evaluation program in <a class="docLink" href="ch04lev1sec3.html#ch04lev1sec3">Section 4.3</a> to evaluate post-fix expressions consisting of arbitrarily long integers, using the ADT that you developed for <a class="docLink" href="#ch04qa10q7">Exercise 4.84</a>.</p></td></tr><tr><td></td><td></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q9"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="17" height="8" src="douleblackcircle.jpg" /> <span class="docEmphStrong">4.86</span> Write a client program that uses your polynomial ADT from <a class="docLink" href="#ch04qa10q6">Exercise 4.83</a> to evaluate integrals by using Taylor series approximations of functions, manipulating them symbolically.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q10"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.87</span> Develop an ADT that provides clients with the ability to perform algebraic operations on vectors of floating-point numbers.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q11"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.88</span> Develop an ADT that provides clients with the ability to perform algebraic operations on matrices of abstract objects for which addition, subtraction, multiplication, and division are defined.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q12"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.89</span> Write an interface for a character-string ADT, which includes operations for creating a string, comparing two strings, concatenating two strings, copying one string to another, and returning the string length. <span class="docEmphasis">Note</span>: Your interface will be quite similar to the interface provided in the C++ standard library.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q13"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.90</span> Provide an implementation for your string ADT interface from <a class="docLink" href="#ch04qa10q12">Exercise 4.89</a>, using the C++ string library where appropriate.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q14"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.91</span> Provide an implementation for your string interface from <a class="docLink" href="#ch04qa10q12">Exercise 4.89</a>, using a linked list for the underlying representation. Analyze the worst-case running time of each operation.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q15"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.92</span> Write an interface and an implementation for an index set ADT, which processes sets of integers in the range <tt>0</tt> to <span class="docEmphasis">M</span>&ndash;1 (where <span class="docEmphasis">M</span> is a defined constant) and includes operations for creating a set, computing the union of two sets, computing the intersection of two sets, computing the complement of a set, computing the difference of two sets, and printing out the contents of a set. In your implementation, use an array of <span class="docEmphasis">M</span>&ndash;1 0-1 values to represent each set.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch04qa10q16"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">4.93</span> Write a client program that tests your ADT from <a class="docLink" href="#ch04qa10q15">Exercise 4.92</a>.</p>
+</td></tr></table></p>
+<a href="17051538.html"><img src="pixel.gif" alt="" width="1" height="1" border="0" /></a><ul></ul></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch04lev1sec8.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch04lev1sec10.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="top" align="right"><span style="white-space:nowrap"><a target="_self" href="#toppage" title="Top"></a></span></td></tr></table></div><!--IP User 2--></td></tr></table></td></body></head></html>

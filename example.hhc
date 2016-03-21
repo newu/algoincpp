@@ -1,0 +1,731 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD>
+<BODY>
+   <OBJECT type="text/site properties">
+     <param name="Window Styles" value="0x800425">
+     <param name="comment" value="title:Online Help">
+     <param name="comment" value="base:index.htm">
+   </OBJECT>
+   <UL>
+      <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="Algorithms in C++, Parts 1-4: Fundamentals, Data Structure, Sorting, Searching, Third Edition ">
+            <param name="Local" value="9780768685336.html">
+          </OBJECT>
+      <UL>
+         <LI><OBJECT type="text/sitemap">
+               <param name="Name" value="Table of Contents">
+               <param name="Local" value="Toc.html">
+               <param name="ImageNumber" value="20">
+             </OBJECT>
+         <LI><OBJECT type="text/sitemap">
+               <param name="Name" value="Copyright">
+               <param name="Local" value="copyrightpg.html">
+               <param name="ImageNumber" value="18">
+             </OBJECT>
+         <LI><OBJECT type="text/sitemap">
+               <param name="Name" value="Preface">
+               <param name="Local" value="pref01.html">
+               <param name="ImageNumber" value="17">
+             </OBJECT>
+         <LI><OBJECT type="text/sitemap">
+               <param name="Name" value="Part One: Fundamentals">
+               <param name="Local" value="part01.html">
+             </OBJECT>
+         <UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter One. Introduction">
+                  <param name="Local" value="ch01.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="1.1. Algorithms">
+                     <param name="Local" value="ch01lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="1.2. A Sample Problem: Connectivity">
+                     <param name="Local" value="ch01lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="1.3. Union–Find Algorithms">
+                     <param name="Local" value="ch01lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="1.4. Perspective">
+                     <param name="Local" value="ch01lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="1.5. Summary of Topics">
+                     <param name="Local" value="ch01lev1sec5.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Two. Principles of Algorithm Analysis">
+                  <param name="Local" value="ch02.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="2.1. Implementation and Empirical Analysis">
+                     <param name="Local" value="ch02lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="2.2. Analysis of Algorithms">
+                     <param name="Local" value="ch02lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="2.3. Growth of Functions">
+                     <param name="Local" value="ch02lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="2.4. Big-Oh Notation">
+                     <param name="Local" value="ch02lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="2.5. Basic Recurrences">
+                     <param name="Local" value="ch02lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="2.6. Examples of Algorithm Analysis">
+                     <param name="Local" value="ch02lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="2.7. Guarantees, Predictions, and Limitations">
+                     <param name="Local" value="ch02lev1sec7.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="References for Part One">
+                  <param name="Local" value="ch02lev2sec1.html">
+                </OBJECT>
+         </UL>
+         <LI><OBJECT type="text/sitemap">
+               <param name="Name" value="Part Two: Data Structures">
+               <param name="Local" value="part02.html">
+             </OBJECT>
+         <UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Three. Elementary Data Structures">
+                  <param name="Local" value="ch03.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="3.1. Building Blocks">
+                     <param name="Local" value="ch03lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="3.2. Arrays">
+                     <param name="Local" value="ch03lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="3.3. Linked Lists">
+                     <param name="Local" value="ch03lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="3.4. Elementary List Processing">
+                     <param name="Local" value="ch03lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="3.5. Memory Allocation for Lists">
+                     <param name="Local" value="ch03lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="3.6. Strings">
+                     <param name="Local" value="ch03lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="3.7. Compound Data Structures">
+                     <param name="Local" value="ch03lev1sec7.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Four. Abstract Data Types">
+                  <param name="Local" value="ch04.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.1. Abstract Objects and Collections of Objects">
+                     <param name="Local" value="ch04lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.10. Perspective">
+                     <param name="Local" value="ch04lev1sec10.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.2. Pushdown Stack ADT">
+                     <param name="Local" value="ch04lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.3. Examples of Stack ADT Clients">
+                     <param name="Local" value="ch04lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.4. Stack ADT Implementations">
+                     <param name="Local" value="ch04lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.5. Creation of a New ADT">
+                     <param name="Local" value="ch04lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.6. FIFO Queues and Generalized Queues">
+                     <param name="Local" value="ch04lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.7. Duplicate and Index Items">
+                     <param name="Local" value="ch04lev1sec7.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.8. First-Class ADTs">
+                     <param name="Local" value="ch04lev1sec8.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="4.9. Application-Based ADT Example">
+                     <param name="Local" value="ch04lev1sec9.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Five. Recursion and Trees">
+                  <param name="Local" value="ch05.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.1. Recursive Algorithms">
+                     <param name="Local" value="ch05lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.2. Divide and Conquer">
+                     <param name="Local" value="ch05lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.3. Dynamic Programming">
+                     <param name="Local" value="ch05lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.4. Trees">
+                     <param name="Local" value="ch05lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.5. Mathematical Properties of Binary Trees">
+                     <param name="Local" value="ch05lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.6. Tree Traversal">
+                     <param name="Local" value="ch05lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.7. Recursive Binary-Tree Algorithms">
+                     <param name="Local" value="ch05lev1sec7.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.8. Graph Traversal">
+                     <param name="Local" value="ch05lev1sec8.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="5.9. Perspective">
+                     <param name="Local" value="ch05lev1sec9.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="References for Part Two">
+                  <param name="Local" value="ch05lev2sec1.html">
+                </OBJECT>
+         </UL>
+         <LI><OBJECT type="text/sitemap">
+               <param name="Name" value="Part Three: Sorting">
+               <param name="Local" value="part03.html">
+             </OBJECT>
+         <UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Six. Elementary Sorting Methods">
+                  <param name="Local" value="ch06.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.1. Rules of the Game">
+                     <param name="Local" value="ch06lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.10. Key-Indexed Counting">
+                     <param name="Local" value="ch06lev1sec10.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.2. Selection Sort">
+                     <param name="Local" value="ch06lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.3. Insertion Sort">
+                     <param name="Local" value="ch06lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.4. Bubble Sort">
+                     <param name="Local" value="ch06lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.5. Performance Characteristics of Elementary Sorts">
+                     <param name="Local" value="ch06lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.6. Shellsort">
+                     <param name="Local" value="ch06lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.7. Sorting of Other Types of Data">
+                     <param name="Local" value="ch06lev1sec7.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.8. Index and Pointer Sorting">
+                     <param name="Local" value="ch06lev1sec8.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="6.9. Sorting of Linked Lists">
+                     <param name="Local" value="ch06lev1sec9.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Seven. Quicksort">
+                  <param name="Local" value="ch07.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="7.1. The Basic Algorithm">
+                     <param name="Local" value="ch07lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="7.2. Performance Characteristics of Quicksort">
+                     <param name="Local" value="ch07lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="7.3. Stack Size">
+                     <param name="Local" value="ch07lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="7.4. Small Subfiles">
+                     <param name="Local" value="ch07lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="7.5. Median-of-Three Partitioning">
+                     <param name="Local" value="ch07lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="7.6. Duplicate Keys">
+                     <param name="Local" value="ch07lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="7.7. Strings and Vectors">
+                     <param name="Local" value="ch07lev1sec7.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="7.8. Selection">
+                     <param name="Local" value="ch07lev1sec8.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Eight. Merging and Mergesort">
+                  <param name="Local" value="ch08.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="8.1. Two-Way Merging">
+                     <param name="Local" value="ch08lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="8.2. Abstract In-Place Merge">
+                     <param name="Local" value="ch08lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="8.3. Top-Down Mergesort">
+                     <param name="Local" value="ch08lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="8.4. Improvements to the Basic Algorithm">
+                     <param name="Local" value="ch08lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="8.5. Bottom-Up Mergesort">
+                     <param name="Local" value="ch08lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="8.6. Performance Characteristics of Mergesort">
+                     <param name="Local" value="ch08lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="8.7. Linked-List Implementations of Mergesort">
+                     <param name="Local" value="ch08lev1sec7.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="8.8. Recursion Revisited">
+                     <param name="Local" value="ch08lev1sec8.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Nine. Priority Queues and Heapsort">
+                  <param name="Local" value="ch09.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="9.1. Elementary Implementations">
+                     <param name="Local" value="ch09lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="9.2. Heap Data Structure">
+                     <param name="Local" value="ch09lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="9.3. Algorithms on Heaps">
+                     <param name="Local" value="ch09lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="9.4. Heapsort">
+                     <param name="Local" value="ch09lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="9.5. Priority-Queue ADT">
+                     <param name="Local" value="ch09lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="9.6. Priority Queues for Index Items">
+                     <param name="Local" value="ch09lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="9.7. Binomial Queues">
+                     <param name="Local" value="ch09lev1sec7.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Ten. Radix Sorting">
+                  <param name="Local" value="ch10.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="10.1. Bits, Bytes, and Words">
+                     <param name="Local" value="ch10lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="10.2. Binary Quicksort">
+                     <param name="Local" value="ch10lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="10.3. MSD Radix Sort">
+                     <param name="Local" value="ch10lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="10.4. Three-Way Radix Quicksort">
+                     <param name="Local" value="ch10lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="10.5. LSD Radix Sort">
+                     <param name="Local" value="ch10lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="10.6. Performance Characteristics of Radix Sorts">
+                     <param name="Local" value="ch10lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="10.7. Sublinear-Time Sorts">
+                     <param name="Local" value="ch10lev1sec7.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Eleven. Special-Purpose Sorting Methods">
+                  <param name="Local" value="ch11.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="11.1. Batcher's Odd–Even Mergesort">
+                     <param name="Local" value="ch11lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="11.2. Sorting Networks">
+                     <param name="Local" value="ch11lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="11.3. External Sorting">
+                     <param name="Local" value="ch11lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="11.4. Sort–Merge Implementations">
+                     <param name="Local" value="ch11lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="11.5. Parallel Sort–Merge">
+                     <param name="Local" value="ch11lev1sec5.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="References for Part Three">
+                  <param name="Local" value="ch11lev2sec1.html">
+                </OBJECT>
+         </UL>
+         <LI><OBJECT type="text/sitemap">
+               <param name="Name" value="Part Four: Searching">
+               <param name="Local" value="part04.html">
+             </OBJECT>
+         <UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Twelve. Symbol Tables and Binary Search Trees">
+                  <param name="Local" value="ch12.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.1. Symbol-Table Abstract Data Type">
+                     <param name="Local" value="ch12lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.2. Key-Indexed Search">
+                     <param name="Local" value="ch12lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.3. Sequential Search">
+                     <param name="Local" value="ch12lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.4. Binary Search">
+                     <param name="Local" value="ch12lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.5. Binary Search Trees (BSTs)">
+                     <param name="Local" value="ch12lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.6. Performance Characteristics of BSTs">
+                     <param name="Local" value="ch12lev1sec6.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.7. Index Implementations with Symbol Tables">
+                     <param name="Local" value="ch12lev1sec7.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.8. Insertion at the Root in BSTs">
+                     <param name="Local" value="ch12lev1sec8.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="12.9. BST Implementations of Other ADT Functions">
+                     <param name="Local" value="ch12lev1sec9.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Thirteen. Balanced Trees">
+                  <param name="Local" value="ch13.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="13.1. Randomized BSTs">
+                     <param name="Local" value="ch13lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="13.2. Splay BSTs">
+                     <param name="Local" value="ch13lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="13.3. Top-Down 2-3-4 Trees">
+                     <param name="Local" value="ch13lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="13.4. Red–Black Trees">
+                     <param name="Local" value="ch13lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="13.5. Skip Lists">
+                     <param name="Local" value="ch13lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="13.6. Performance Characteristics">
+                     <param name="Local" value="ch13lev1sec6.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Fourteen. Hashing">
+                  <param name="Local" value="ch14.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="14.1. Hash Functions">
+                     <param name="Local" value="ch14lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="14.2. Separate Chaining">
+                     <param name="Local" value="ch14lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="14.3. Linear Probing">
+                     <param name="Local" value="ch14lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="14.4. Double Hashing">
+                     <param name="Local" value="ch14lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="14.5. Dynamic Hash Tables">
+                     <param name="Local" value="ch14lev1sec5.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="14.6. Perspective">
+                     <param name="Local" value="ch14lev1sec6.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Fifteen. Radix Search">
+                  <param name="Local" value="ch15.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="15.1. Digital Search Trees">
+                     <param name="Local" value="ch15lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="15.2. Tries">
+                     <param name="Local" value="ch15lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="15.3. Patricia Tries">
+                     <param name="Local" value="ch15lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="15.4. Multiway Tries and TSTs">
+                     <param name="Local" value="ch15lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="15.5. Text-String–Index Algorithms">
+                     <param name="Local" value="ch15lev1sec5.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Chapter Sixteen. External Searching">
+                  <param name="Local" value="ch16.html">
+                </OBJECT>
+            <UL>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="16.1. Rules of the Game">
+                     <param name="Local" value="ch16lev1sec1.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="16.2. Indexed Sequential Access">
+                     <param name="Local" value="ch16lev1sec2.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="16.3. B Trees">
+                     <param name="Local" value="ch16lev1sec3.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="16.4. Extendible Hashing">
+                     <param name="Local" value="ch16lev1sec4.html">
+                   </OBJECT>
+               <LI><OBJECT type="text/sitemap">
+                     <param name="Name" value="16.5. Perspective">
+                     <param name="Local" value="ch16lev1sec5.html">
+                   </OBJECT>
+            </UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="References for Part Four">
+                  <param name="Local" value="ch16lev2sec1.html">
+                </OBJECT>
+         </UL>
+         <LI><OBJECT type="text/sitemap">
+               <param name="Name" value="Index">
+               <param name="Local" value="index.html">
+             </OBJECT>
+         <UL>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="A">
+                  <param name="Local" value="index&amp;view=A.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="B">
+                  <param name="Local" value="index&amp;view=B.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="C">
+                  <param name="Local" value="index&amp;view=C.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="D">
+                  <param name="Local" value="index&amp;view=D.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="E">
+                  <param name="Local" value="index&amp;view=E.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="F">
+                  <param name="Local" value="index&amp;view=F.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="G">
+                  <param name="Local" value="index&amp;view=G.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="H">
+                  <param name="Local" value="index&amp;view=H.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="I">
+                  <param name="Local" value="index&amp;view=I.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="J">
+                  <param name="Local" value="index&amp;view=J.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="K">
+                  <param name="Local" value="index&amp;view=K.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="L">
+                  <param name="Local" value="index&amp;view=L.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="M">
+                  <param name="Local" value="index&amp;view=M.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="N">
+                  <param name="Local" value="index&amp;view=N.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="O">
+                  <param name="Local" value="index&amp;view=O.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="P">
+                  <param name="Local" value="index&amp;view=P.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Q">
+                  <param name="Local" value="index&amp;view=Q.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="R">
+                  <param name="Local" value="index&amp;view=R.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="S">
+                  <param name="Local" value="index&amp;view=S.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="T">
+                  <param name="Local" value="index&amp;view=T.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="U">
+                  <param name="Local" value="index&amp;view=U.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="V">
+                  <param name="Local" value="index&amp;view=V.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="W">
+                  <param name="Local" value="index&amp;view=W.html">
+                </OBJECT>
+            <LI><OBJECT type="text/sitemap">
+                  <param name="Name" value="Y">
+                  <param name="Local" value="index&amp;view=Y.html">
+                </OBJECT>
+         </UL>
+      </UL>
+   </UL>
+</BODY>
+</HTML>

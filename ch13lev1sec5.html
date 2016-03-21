@@ -1,0 +1,166 @@
+<html><head><title>13.5. Skip Lists</title><title>TeamUnknown</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/globalstyle.css" /><link href="includes/searchResults.css" rel="stylesheet" type="text/css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/style.css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/docsafari.css" /><body><table width="100%" border="0" cellspacing="0" cellpadding="0"><td class="docBookTitle"><a href="toc.html"><b>[ Team Unknown ]</b></a></td></table><td align="center"><a name="MainContent"></a><table width="95%"><tr><td align="left" class="v2"><!--Copyright (c) 2002 Safari Tech Books Online--><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch13lev1sec4.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch13lev1sec6.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><div id="section"><br /><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top"><a href="17051538.html"><img src="pixel.gif" alt="" width="1" height="1" border="0" /></a>C++ Programming Robert Sedgewick - Princeton University Addison Wesley Professional Algorithms in C++, Parts 1&ndash;4: Fundamentals, Data Structure, Sorting, Searching, Third Edition<a name="ch13lev1sec5"></a>
+<h3 id="title-IDAWMVOE" class="docSection1Title">13.5. Skip Lists</h3>
+<p class="docText">In this section, we consider an approach to developing fast implementations of symbol-table operations that seems at first to be completely different from the tree-based methods that we have been considering, but actually is closely related to them. It is based on a randomized data structure and is almost certain to provide near-optimal performance for all the basic operations for the symbol-table ADT that we have been considering. The underlying data structure, which was developed by Pugh in 1990 (<span class="docEmphasis">see reference section</span>), is called a <span class="docEmphasis">skip list</span>. It uses extra links in the nodes of a linked list to skip through large portions of a list at a time during a search.</p>
+<p class="docText"><a class="docLink" href="#ch13fig22">Figure 13.22</a> gives a simple example, where every third node in an ordered linked list contains an extra link that allows us to skip three <a name="iddle2359"></a><a name="iddle2362"></a>nodes in the list. We can use the extra links to speed up <span class="docEmphasis">search</span>: We scan through the top list until we find the key or a node with a smaller key with a link to a node with a larger key, then use the links at the bottom to check the two intervening nodes. This method speeds up <span class="docEmphasis">search</span> by a factor of 3, because we examine only about <span class="docEmphasis">k/3</span> nodes in a successful search for the <span class="docEmphasis">k</span>th node on the list.</p>
+<a name="ch13fig22"></a><p><center>
+<h5 class="docFigureTitle">Figure 13.22. A two-level linked list</h5>
+<h5></h5><h5></h5></center></p><p class="docText">Every third node in this list has a second link, so we can skip through the list at nearly three times the speed that we could go by following the first links. For example, we can get to the twelfth node in the list, the <tt>P</tt>, from the beginning by following just five links: second links to <tt>C, G, L, N,</tt> and then through <span class="docEmphasis">N</span>'s first link, <tt>P</tt>.</p>
+<p class="docText">
+<img border="0" alt="" width="400" height="40" src="13fig22.gif" /></p>
+<br />
+<p class="docText">We can iterate this construction, and provide a second extra link to be able to scan faster through the nodes with extra links, and so forth. Also, we can generalize the construction by skipping a variable number of nodes with each link.</p>
+<a name="ch13ex20"></a><h5 id="title-IDAXPVOE" class="docExampleTitle">Definition 13.5. <span class="docEmphasis">A skip list</span> is an ordered linked list where each node contains a variable number of links, with the ith links in the nodes implementing singly linked lists that skip the nodes with fewer than i links</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText"><a class="docLink" href="#ch13fig23">Figure 13.23</a> depicts a sample skip list, and shows an example of searching and inserting a new node. To search, we scan through the top list until we find the search key or a node with a smaller key that has a link to a node with a larger key; then, we move to the second-from-top list and iterate the procedure, continuing until the search key is found or a search miss happens on the bottom level. To insert, we search, linking in the new node when moving from level <span class="docEmphasis">k</span> to level <span class="docEmphasis">k-1</span> if the new node has at least <span class="docEmphasis">k</span> extra links.</p>
+<a name="ch13fig23"></a><p><center>
+<h5 class="docFigureTitle">Figure 13.23. Search and insertion in a skip list</h5>
+<h5></h5><h5></h5></center></p><p class="docText">By adding more levels to the structure in <a class="docLink" href="#ch13fig22">Figure 13.22</a> and allowing links to skip variable numbers of nodes, we get an example of a general skip list. To search for a key in the list, we start at the highest level, moving down each time that we encounter a key that is not smaller than the search key. Here <tt>(top)</tt>, we find <tt>L</tt> by starting at level 3, moving across the first link, then down at <tt>G</tt> (treating the null link as a link to a sentinel), then across to <tt>I</tt>, then down to level 2 because <tt>S</tt> is greater than <tt>L</tt>, then down to level 1 because <tt>M</tt> is greater than L. To insert a node <tt>L</tt> with three links, we link it into the three lists at precisely the places where we found links to greater keys during the search.</p>
+<p class="docText">
+<img border="0" alt="" width="350" height="136" src="13fig23.gif" /></p>
+</td></tr></table></p><br />
+<p class="docText">The internal representation of the nodes is straightforward. We replace the single link in a singly linked list by an array of links, and an integer that contains the number of links in the node. Memory management is perhaps the most complicated aspect of skip lists&mdash;we will examine the type declarations and the code for allocating new nodes shortly, when we consider insertion. For the moment, it suffices to note that we can access the node that follows node <tt>t</tt> on the (<span class="docEmphasis">k</span> + 1)st level in the skip list by accessing <tt>t-&gt;next[k]</tt>. The recursive implementation in <a class="docLink" href="#ch13ex21">Program 13.7</a> shows that searching in skip lists not only is a straightforward generalization of searching in singly linked lists, but also is similar to binary search or searching in BSTs. We test whether the current node has the search key. Then, if it does not, we compare the key in the current node with the search key. We do one recursive call if it is larger and a different recursive call if it is smaller.</p>
+<a name="ch13ex21"></a><h5 id="title-IDAYSVOE" class="docExampleTitle">Program 13.7. Searching in skip lists</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">For <tt>k</tt> equal to 0, this code is equivalent to <a class="docLink" href="ch12lev1sec3.html#ch12ex08">Program 12.6</a>, for searching in singly linked lists. For general <tt>k</tt>, we move to the next node in the list on level <tt>k</tt> if its key is smaller than the search key, and down to level <tt>k-1</tt> if its key is not smaller.</p>
+<div class="docText"><pre>   private:
+     Item searchR(link t, Key v, int k)
+       { if (t == 0) return nullItem;
+         if (v == t-&gt;item.key()) return t-&gt;item;
+         link x = t-&gt;next[k];
+         if ((x == 0) || (v &lt; x-&gt;item.key()))
+           {
+             if (k == 0) return nullItem;
+             return searchR(t, v, k-1);
+           }
+             return searchR(x, v, k);
+        }
+   public:
+     Item search(Key v)
+       { return searchR(head, v, lgN); }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">The first task that we face when we want to insert a new node into a skip list is to determine how many links we want that node to have. All the nodes have at least one link; following the intuition depicted in <a class="docLink" href="#ch13fig22">Figure 13.22</a>, we can skip <span class="docEmphasis">t</span> nodes at a time on the second level if one out of every <span class="docEmphasis">t</span> nodes has at least two links; iterating, we come to the conclusion that we want one out of every <span class="docEmphasis">t<sup>j</sup></span> nodes to have at least <span class="docEmphasis">j + 1</span> links.</p>
+<a name="ch13ex22"></a><h5 id="title-IDAUUVOE" class="docExampleTitle">Program 13.8. Skip-list data structures and constructor</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">Nodes in skip lists have an array of links, so the constructor for <tt>node</tt> needs to allocate the array and to set all the links to 0. The constant <tt>lgNmax</tt> is the maximum number of levels that we will allow in the list: It might be set to five for tiny lists, or to 30 for huge lists. The variable <span class="docEmphasis">N</span> keeps the number of items in the list, as usual, and <tt>lgN</tt> is the number of levels. An empty list is a head node with <tt>lgNmax</tt> links, all set to 0, with <span class="docEmphasis">N</span> and <tt>lgN</tt> also set to 0.</p>
+<div class="docText"><pre> private:
+   struct node
+     { Item item[;;] node **next; int sz;
+       node(Item x, int k)
+         { item = x; sz = k; next = new node*[k];
+           for (int i = 0; i &lt; k; i++) next[i] = 0; }
+     };
+  typedef node *link;
+  link head;
+  Item nullItem;
+  int lgN;
+ public:
+   ST(int)
+     { head = new node(nullItem, lgNmax); lgN = 0; }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">To make nodes with this property, we randomize, using a function that returns <span class="docEmphasis">j + 1</span> with probability 1<span class="docEmphasis">/t<sup>j</sup></span>. Given <span class="docEmphasis">j</span>,we createa new node with <span class="docEmphasis">j</span> links and insert it into the skip list using the same recursive schema as we did for <span class="docEmphasis">search</span>, as illustrated in <a class="docLink" href="#ch13fig23">Figure 13.23</a>. After we have reached level <span class="docEmphasis">j</span>, we link in the new node each time that we move down to the next level. At that point, we have established that the item in the current node is less than the search key and links (on level <span class="docEmphasis">j</span>) to a node that is not less than the search key.</p>
+<p class="docText">To initialize a skip list, we build a head node with the maximum number of levels that we will allow in the list, with null pointers at all levels. <a class="docLink" href="#ch13ex22">Programs 13.8</a> and <a class="docLink" href="#ch13ex23">Program 13.9</a> implement initialization and insertion for skip lists.</p>
+<a name="ch13ex23"></a><h5 id="title-IDAEXVOE" class="docExampleTitle">Program 13.9. Insertion in skip lists</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">We generate a new <span class="docEmphasis">j</span>-link node with probability <span class="docEmphasis">1/2<sup>j</sup></span>, then follow the search path precisely as in <a class="docLink" href="#ch13ex21">Program 13.7</a>, but link in the new node when we move down to each of the bottom <span class="docEmphasis">j</span> levels.</p>
+<div class="docText"><pre> private:
+   int randX()
+    { int i, j, t = rand();
+      for (i = 1, j = 2; i &lt; lgNmax; i++, j += j)
+       if (t &gt; RAND_MAX/j) break;
+      if (i &gt; lgN) lgN = i;
+      return i[;;]
+   }
+ void insertR(link t, link x, int k)
+   { Key v = x-&gt;item.key(); link tk = t-&gt;next[k];
+     if ((tk == 0) || (v &lt; tk-&gt;item.key()))
+       {
+        if (k &lt; x-&gt;sz)
+             { x-&gt;next[k] = tk; t-&gt;next[k] = x; }
+        if (k == 0) return;
+        insertR(t, x, k-1); return;
+      }
+    insertR(tk, x, k);
+  }
+public:
+  void insert(Item v)
+    { insertR(head, new node(v, randX()), lgN); }</pre></div><br />
+</td></tr></table></p>
+<p class="docText"><a class="docLink" href="#ch13fig24">Figure 13.24</a> shows the construction of a skip list for a sample set of keys when inserted in random order; <a class="docLink" href="#ch13fig25">Figure 13.25</a> shows a larger example; and <a class="docLink" href="#ch13fig26">Figure 13.26</a> shows the construction of a skip list for the same set of keys as in <a class="docLink" href="#ch13fig24">Figure 13.24</a>, but inserted in increasing order. Like those of randomized BSTs, the stochastic properties of skip lists do not depend on the order in which keys are inserted.</p>
+<a name="ch13fig24"></a><p><center>
+<h5 class="docFigureTitle">Figure 13.24. Skip-list construction</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This sequence depicts the result of inserting items with keys <tt>A S E R C H I N G</tt> into an initially empty skip list. Nodes have <span class="docEmphasis">j</span> links with probability <span class="docEmphasis">1/2<sup>j</sup></span>.</p>
+<p class="docText">
+<img border="0" alt="" width="195" height="592" src="13fig24.gif" /></p>
+<br />
+<a name="ch13fig25"></a><p><center>
+<h5 class="docFigureTitle">Figure 13.25. A large skip list</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This skip list is the result of inserting 50 randomly ordered keys into an initially empty list. We can access any node by following 7 or fewer links.</p>
+<p class="docText">
+<img border="0" alt="" width="500" height="47" src="13fig25.gif" /></p>
+<br />
+<a name="ch13fig26"></a><p><center>
+<h5 class="docFigureTitle">Figure 13.26. Skip-list construction with keys in order</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This sequence depicts the result of inserting items with keys A C E G H I N R S into an initially empty skip list. Stochastic properties of the list do not depend on the key insertion order.</p>
+<p class="docText">
+<img border="0" alt="" width="185" height="561" src="13fig26.gif" /></p>
+<br />
+<a name="ch13ex24"></a><h5 id="title-IDAH2VOE" class="docExampleTitle">Property 13.10. Search and insertion in a randomized skip list with parameter <span class="docEmphasis">t</span> require about (<span class="docEmphasis">t</span> log<span class="docEmphasis"><sub>t</sub> N</span>)/2 = (<span class="docEmphasis">t</span>/(2lg<span class="docEmphasis">t))</span>lg<span class="docEmphasis">N</span> comparisons, on the average</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">We expect the skip list to have about log<span class="docEmphasis"><sub>t</sub>N</span> levels, because log<span class="docEmphasis"><sub>t</sub>N</span> is greater than the smallest <span class="docEmphasis">j</span> for which <span class="docEmphasis">t<sup>j</sup> =</span> <span class="docEmphasis">N</span>. On each level, we expect that about <span class="docEmphasis">t</span> nodes were skipped on the previous level, and that we should have to go through about half of them, on the average, before dropping to the next level. The number of levels is small, as is clear from the example in <a class="docLink" href="#ch13fig25">Figure 13.25</a>, but the precise analysis that establishes this is not elementary (<span class="docEmphasis">see reference section</span>).</p>
+</td></tr></table></p>
+<a name="ch13ex25"></a><h5 id="title-IDAB4VOE" class="docExampleTitle">Property 13.11. Skip lists have (<span class="docEmphasis">t/(t - 1))N</span> links on the average</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">There are <span class="docEmphasis">N</span> links on the bottom, <span class="docEmphasis">N/t</span> links on the first level, about <span class="docEmphasis">N/t<sup>2</sup></span> links on the second level, and so forth, for a total of about</p>
+<div class="docText"><pre><span class="docEmphasis">N</span>(1 + 1/<span class="docEmphasis">t</span> + 1/<span class="docEmphasis">t</span><sup>2</sup> + 1/<span class="docEmphasis">t<sup>3</sup></span> ...) = <span class="docEmphasis">N</span>/(1-1/<span class="docEmphasis">t</span>)</pre></div><br />
+<p class="docText">links in the whole list.</p>
+</td></tr></table></p>
+<p class="docText">Picking an appropriate value of <span class="docEmphasis">t</span> leads us immediately to a time&ndash;space tradeoff. When <span class="docEmphasis">t = 2</span>, skip lists need about <span class="docEmphasis">lgN</span> comparisons and <span class="docEmphasis">2N</span> links, on the average&mdash;performance comparable with the best that we have seen with BSTs. For larger <span class="docEmphasis">t</span>, the time for search and insert is longer, but the extra space for links is smaller. Differentiating the expression in <a class="docLink" href="#ch13ex24">Property 13.10</a>, we find that the choice <span class="docEmphasis">t = e</span> minimizes the expected number of comparisons for searching in a skip list. The following table gives the value of the coefficient of <span class="docEmphasis">NlgN</span> in the number of comparisons needed to construct a table of <span class="docEmphasis">N</span> items:</p>
+<p><table cellspacing="0" frame="void" rules="none" cellpadding="5"><colgroup align="left" span="7"><col width="75"></col><col width="75"></col><col width="75"></col><col width="75"></col><col width="75"></col><col width="75"></col><col width="75"></col></colgroup><thead></thead><tr><td class="docTableCell" align="left" valign="top"><p class="docText"><span class="docEmphasis">t</span></p></td><td class="docTableCell" align="left" valign="top"><p class="docText">2</p></td><td class="docTableCell" align="left" valign="top"><p class="docText"><span class="docEmphasis">e</span></p></td><td class="docTableCell" align="left" valign="top"><p class="docText">3</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">4</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">8</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">16</p></td></tr><tr><td class="docTableCell" align="left" valign="top"><p class="docText"><span class="docEmphasis">lgt</span></p></td><td class="docTableCell" align="left" valign="top"><p class="docText">1:00</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">1:44</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">1:58</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">2:00</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">3:00</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">4:00</p></td></tr><tr><td class="docTableCell" align="left" valign="top"><p class="docText"><span class="docEmphasis">t/lgt</span></p></td><td class="docTableCell" align="left" valign="top"><p class="docText">2:00</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">1:88</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">1:89</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">2:00</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">2:67</p></td><td class="docTableCell" align="left" valign="top"><p class="docText">4:00</p></td></tr></table></p><br />
+<p class="docText">If doing comparisons, following links, and moving down recursively have costs that differ substantially, we can do a more refined calculation along these lines (see <a class="docLink" href="#ch13qa6q9">Exercise 13.83</a>).</p>
+<p class="docText">Because the search time is logarithmic, we can reduce the space overhead to not much more than that for singly-linked lists (if space is tight) by increasing <span class="docEmphasis">t</span>. Precise estimates of running time depend on assessment of the relative costs of following links across the lists and the recursive calls to move down to the next level. We shall revisit this kind of time&ndash;space tradeoff again in <a class="docLink" href="ch16.html#ch16">Chapter 16</a>, when we look at the problem of indexing huge files.</p>
+<a name="ch13ex26"></a><h5 id="title-IDAYFWOE" class="docExampleTitle">Program 13.10. Removal in skip lists</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">To remove a node with a given key from a skip list, we unlink it at each level that we find a link to it, then delete it when we reach the bottom level.</p>
+<div class="docText"><pre>   private:
+     void removeR(link t, Key v, int k)
+       { link x = t-&gt;next[k];
+         if (!(x-&gt;item.key() &lt; v))
+           {
+            if (v == x-&gt;item.key())
+              { t-&gt;next[k] = x-&gt;next[k]; }
+            if (k == 0) { delete x; return; }
+            removeR(t, v, k-1); return;
+          }
+        removeR(t-&gt;next[k], v, k);
+      }
+  public:
+    void remove(Item x)
+      { removeR(head, x.key(), lgN); }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">Other symbol-table functions are straightforward to implement with skip lists. For example, <a class="docLink" href="#ch13ex26">Program 13.10</a> gives an implementation of the <span class="docEmphasis">remove</span> function, using the same recursive scheme that we used for <span class="docEmphasis">insert</span> in <a class="docLink" href="#ch13ex23">Program 13.9</a>. To delete, we unlink the node from the lists at each level (where we linked it in for <span class="docEmphasis">insert</span>), and we free the node after unlinking it from the bottom list (as opposed to creating it before traversing the list for insert). To implement <span class="docEmphasis">join</span>, we merge the lists (see <a class="docLink" href="#ch13qa6q4">Exercise 13.78</a>); to implement <span class="docEmphasis">select</span>, we add a field to each node that gives the number of nodes skipped by the highest-level link to it (see <a class="docLink" href="#ch13qa6q3">Exercise 13.77</a>).</p>
+<p class="docText">Although skip lists are easy to conceptualize as a systematic way to move quickly through a linked list, it is also important to understand that the underlying data structure is nothing more than an alternative representation of a balanced tree. For example, <a class="docLink" href="#ch13fig27">Figure 13.27</a> shows the skip-list representation of the balanced 2-3-4 tree in <a class="docLink" href="ch13lev1sec3.html#ch13fig10">Figure 13.10</a>. We can implement the balanced 2-3-4 tree algorithms of <a class="docLink" href="ch13lev1sec3.html#ch13lev1sec3">Section 13.3</a> using the skip-list abstraction, rather than the red&ndash;black tree abstraction of <a class="docLink" href="ch13lev1sec4.html#ch13lev1sec4">Section 13.4</a>. The resulting code is somewhat more complicated than the implementations that we have considered (see <a class="docLink" href="#ch13qa6q6">Exercise 13.80</a>). We shall revisit this relationship between skip lists and balanced trees in <a class="docLink" href="ch16.html#ch16">Chapter 16</a>.</p>
+<a name="ch13fig27"></a><p><center>
+<h5 class="docFigureTitle">Figure 13.27. Skip-list representation of a 2-3-4 tree</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This skip list is a representation of the 2-3-4 tree in <a class="docLink" href="ch13lev1sec3.html#ch13fig10">Figure 13.10</a>. In general, skip lists correspond to balanced multiway trees with one or more links per node (1-nodes, with no keys and 1 link, are allowed). To build the skip list corresponding to a tree, we give each node a number of links equal to its height in the tree, and then link the nodes horizontally. To build the tree corresponding to a skip list, we group skipped nodes, and recursively link them to nodes at the next level.</p>
+<p class="docText">
+<img border="0" alt="" width="300" height="46" src="13fig27.gif" /></p>
+<br />
+<p class="docText">The ideal skip list illustrated in <a class="docLink" href="#ch13fig22">Figure 13.22</a> is a rigid structure that is as difficult to maintain, when we insert a new node, as is the ordered array for binary search, because the insertion involves changing all the links in all the nodes after the node inserted. One way to loosen the structure is to build lists where each link skips either one, two, or three links on the level below: this arrangement corresponds to 2-3-4 trees, as illustrated in <a class="docLink" href="#ch13fig27">Figure 13.27</a>. The randomized algorithm discussed in this section is another effective way to loosen the structure; we shall consider other alternatives in <a class="docLink" href="ch16.html#ch16">Chapter 16</a>.</p>
+</td></tr></table>
+<p class="docText">&nbsp;<a name="iddle2360"></a><a name="iddle2361"></a></p>
+<p class="docQandasetTitle">Exercises</p><p><table border="0" cellspacing="16" cellpadding="0"><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q1"></a><b></b></td><td><p class="docText"><a name="iddle1131"></a><a name="iddle1195"></a><a name="iddle2363"></a><a name="iddle2572"></a><a name="iddle2597"></a><span class="docEmphStrong">13.75</span> Draw the skip list that results when you insert items with the keys <tt>E A S Y Q U T I O N</tt> in that order into an initially empty list, assuming that <tt>randX</tt> returns the sequence of values 1, 3, 1, 1, 2, 2, 1, 4, 1, and 1.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q2"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">13.76</span> Draw the skip list that results when you insert items with the keys A E I N O Q S T U Y in that order into an initially empty list, assuming the same <tt>randX</tt> return values as for <a class="docLink" href="#ch13qa6q1">Exercise 13.75</a>.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q3"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">13.77</span> Implement the <span class="docEmphasis">select</span> operation for a skip-list&ndash;based symbol table.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q4"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">13.78</span> Implement the <span class="docEmphasis">join</span> operation for a skip-list&ndash;based symbol table.</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q5"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">13.79</span> Modify the implementations of <span class="docEmphasis">search</span> and <span class="docEmphasis">insert</span> given in <a class="docLink" href="#ch13ex21">Program 13.7</a> and <a class="docLink" href="#ch13ex23">Program 13.9</a> to end lists with a sentinel node, instead of 0.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q6"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">13.80</span> Use skip lists to implement <span class="docEmphasis">construct</span>, <span class="docEmphasis">search</span>, and <span class="docEmphasis">insert</span> for symbol tables with the balanced 2-3-4 tree abstraction.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q7"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">13.81</span> How many random numbers are needed, on the average, to build a skip list with parameter <span class="docEmphasis">t</span>, using the <tt>randX()</tt> function in <a class="docLink" href="#ch13ex23">Program 13.9</a>?</p>
+</td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q8"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">13.82</span> For <span class="docEmphasis">t = 2</span>, modify <a class="docLink" href="#ch13ex23">Program 13.9</a> to eliminate the <tt>for</tt> loop in <tt>randX</tt>. <span class="docEmphasis">Hint</span>: The final <span class="docEmphasis">j</span> bits in the binary representation of a number <span class="docEmphasis">t</span> assume any particular <span class="docEmphasis">j</span>-bit value with probability <span class="docEmphasis">1/2<sup>j</sup></span>.</p></td></tr><tr><td></td><td></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q9"></a><b></b></td><td><p class="docText"><a name="iddle1123"></a><a name="iddle1173"></a><a name="iddle1189"></a><a name="iddle2224"></a><a name="iddle2269"></a><a name="iddle2430"></a><a name="iddle2561"></a><span class="docEmphStrong">13.83</span> Choose the value of <span class="docEmphasis">t</span> that minimizes the search cost for the case that following a link costs <span class="docEmphasis">&#945;</span> times as much as doing a comparison and that moving down one level of recursion costs <span class="docEmphasis">&#946;</span> times as much as doing a comparison.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch13qa6q10"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">13.84</span> Develop a skip list implementation that has the pointers themselves in the nodes instead of the pointer to an array of pointers that we used in <a class="docLink" href="#ch13ex21">Programs 13.7</a> through <a class="docLink" href="ch13lev1sec2.html#ch13ex10">13.10</a>. <span class="docEmphasis">Hint</span>: Put the array at the <span class="docEmphasis">end</span> of <tt>node</tt>.</p></td></tr></table></p>
+<a href="17051538.html"><img src="pixel.gif" alt="" width="1" height="1" border="0" /></a><ul></ul></div></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch13lev1sec4.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch13lev1sec6.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="top" align="right"><span style="white-space:nowrap"><a target="_self" href="#toppage" title="Top"></a></span></td></tr></table><!--IP User 2--></td></body></head></html>

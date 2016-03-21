@@ -1,0 +1,116 @@
+<html><head><title>5.7. Recursive Binary-Tree Algorithms</title><title>TeamUnknown</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/globalstyle.css" /><link href="includes/searchResults.css" rel="stylesheet" type="text/css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/style.css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/docsafari.css" /><body><table width="100%" border="0" cellspacing="0" cellpadding="0"><td class="docBookTitle"><a href="toc.html"><b>[ Team Unknown ]</b></a></td></table><td align="center"><a name="MainContent"></a><table width="95%"><tr><td align="left" class="v2"><!--Copyright (c) 2002 Safari Tech Books Online--><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch05lev1sec6.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch05lev1sec8.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><div id="section"><br /><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top">C++ Programming Robert Sedgewick - Princeton University Addison Wesley Professional Algorithms in C++, Parts 1&ndash;4: Fundamentals, Data Structure, Sorting, Searching, Third Edition<a name="ch05lev1sec7"></a>
+<h3 id="title-IDA03PJF" class="docSection1Title">5.7. Recursive Binary-Tree Algorithms</h3>
+<p class="docText">The tree-traversal algorithms that we considered in <a class="docLink" href="ch05lev1sec6.html#ch05lev1sec6">Section 5.6</a> exemplify the basic fact that we are led to consider recursive algorithms for binary trees, because of these trees' very nature as recursive structures. Many tasks admit direct recursive divide-and-conquer algorithms, which essentially generalize the traversal algorithms. We process a tree by processing the root node and (recursively) its subtrees; we can do computation before, between, or after the recursive calls (or possibly all three).</p>
+<p class="docText">We frequently need to find the values of various structural parameters for a tree, given only a link to the tree. For example, <a class="docLink" href="#ch05ex32">Program 5.17</a> comprises recursive functions for computing the number of nodes in and the height of a given tree. The functions follow immediately from <a class="docLink" href="ch05lev1sec5.html#ch05ex25">Definition 5.6</a>. Neither of these functions depends on the order in which the recursive calls are processed: they process all the nodes in the tree and return the same answer if we, for example, exchange the recursive calls. Not all tree parameters are so easily computed: for <a name="iddle1214"></a><a name="iddle1217"></a><a name="iddle2525"></a>example, a program to compute efficiently the internal path length of a binary tree is more challenging (see <a class="docLink" href="#ch05qa7q4">Exercises 5.88</a> through <a class="docLink" href="#ch05qa7q6">5.90</a>).</p>
+<a name="ch05ex32"></a><h5 id="title-IDAHAO0H" class="docExampleTitle">Program 5.17. Computation of tree parameters</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">We can use simple recursive procedures such as these to learn basic structural properties of trees.</p>
+<div class="docText"><pre>int count(link h)
+  {
+    if (h == 0) return 0;
+    return count(h-&gt;l) + count(h-&gt;r) + 1;
+  }
+int height(link h)
+  {
+    if (h == 0) return -1;
+    int u = height(h-&gt;l), v = height(h-&gt;r);
+    if (u &gt; v) return u+1; else return v+1;
+  }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">Another function that is useful whenever we write programs that process trees is one that prints out or draws the tree. For example, <a class="docLink" href="#ch05ex33">Program 5.18</a> is a recursive procedure that prints out a tree in the format illustrated in <a class="docLink" href="#ch05fig29">Figure 5.29</a>. We can use the same basic recursive scheme to draw more elaborate representations of trees, such as those that we use in the figures in this book (see <a class="docLink" href="#ch05qa7q1">Exercise 5.85</a>).</p>
+<a name="ch05fig29"></a><p><center>
+<h5 class="docFigureTitle">Figure 5.29. Printing a tree (inorder and preorder)</h5>
+<h5></h5><h5></h5></center></p><p class="docText">The output at the left results from using <a class="docLink" href="#ch05ex33">Program 5.18</a> on the sample tree in <a class="docLink" href="ch05lev1sec6.html#ch05fig26">Figure 5.26</a>, and exhibits the tree structure in a manner similar to the graphical representation that we have been using, rotated 90 degrees. The output at the right is from the same program with the print statement moved to the beginning; it exhibits the tree structure in a familiar outline format.</p>
+<p class="docText">
+<img border="0" alt="" width="175" height="268" src="05fig29.gif" /></p>
+<br />
+<p class="docText"><a class="docLink" href="#ch05ex33">Program 5.18</a> is an inorder traversal&mdash;if we print the item before the recursive calls, we get a preorder traversal, which is also illustrated in <a class="docLink" href="#ch05fig29">Figure 5.29</a>. This format is a familiar one that we might use, for example, for a family tree, or to list files in a tree-based file system, or to make an outline of a printed document, For example, doing a preorder traversal of the tree in <a class="docLink" href="ch05lev1sec4.html#ch05fig19">Figure 5.19</a> gives a version of the table of contents of this book.</p>
+<p class="docText">Our first example of a program that builds an explicit binary tree structure is associated with the find-the-maximum application that we considered in <a class="docLink" href="ch05lev1sec2.html#ch05lev1sec2">Section 5.2</a>. Our goal is to build a <span class="docEmphasis">tournament</span>: a binary tree where the item in every internal node is a copy of the larger of the items in its two children. In particular, the item at the root is a copy of the largest item in the tournament. The items in the leaves (nodes with <a name="iddle1215"></a>no children) constitute the data of interest, and the rest of the tree is a data structure that allows us to find the largest of the items efficiently.</p>
+<a name="ch05ex33"></a><h5 id="title-IDAHEO0H" class="docExampleTitle">Program 5.18. Quick tree-print function</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">This recursive program keeps track of the tree height and uses that information for indentation in printing out a representation of the tree that we can use to debug tree-processing programs (see <a class="docLink" href="#ch05fig29">Figure 5.29</a>). It assumes that items in nodes are of type <tt>Item</tt>, for which <tt>operator&lt;&lt;</tt> is defined through overloading.</p>
+<div class="docText"><pre>void printnode(Item x, int h)
+  { for (int i = 0; i &lt; h; i++) cout &lt;&lt; " ";
+    cout &lt;&lt; x &lt;&lt; endl;
+  }
+void show(link t, int h)
+  {
+    if (t == 0) { printnode('*', h); return; }
+    show(t-&gt;r, h+1);
+    printnode(t-&gt;item, h);
+    show(t-&gt;l, h+1);
+  }</pre></div><br />
+</td></tr></table></p>
+<p class="docText"><a class="docLink" href="#ch05ex34">Program 5.19</a> is a recursive program that builds a tournament from the items in an array. An extension of <a class="docLink" href="ch05lev1sec2.html#ch05ex06">Program 5.6</a>, it uses a divide-and-conquer strategy: To build a tournament for a single item, we create (and return) a leaf containing that item. To build a tournament for <span class="docEmphasis">N</span> &gt; 1 items, we use the divide-and-conquer strategy: Divide the items in half, build tournaments for each half, and create a new node with links to the two tournaments and with an item that is a copy of the larger of the items in the roots of the two tournaments.</p>
+<p class="docText"><a class="docLink" href="#ch05fig30">Figure 5.30</a> is an example of an explicit tree structure built by <a class="docLink" href="#ch05ex34">Program 5.19</a>. Building a recursive data structure such as this one is perhaps preferable to finding the maximum by scanning the data, as we did in <a class="docLink" href="ch05lev1sec2.html#ch05ex06">Program 5.6</a>, because the tree structure provides us with the flexibility to perform other operations. The very operation that we use to build the tournament is an important example: Given two tournaments, we can combine them into a single tournament in constant time, by creating a new node, making its left link point to one of the tournaments and its right link point to the other, and taking the <a name="iddle1149"></a>larger of the two items (at the roots of the two given tournaments) as the largest item in the combined tournament. We also can consider algorithms for adding items, removing items, and performing other operations. We shall not consider such operations here because we consider similar data structures with this flexibility in <a class="docLink" href="ch09.html#ch09">Chapter 9</a>.</p>
+<a name="ch05fig30"></a><p><center>
+<h5 class="docFigureTitle">Figure 5.30. Explicit tree for finding the maximum (tournament)</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This figure depicts the explicit tree structure that is constructed by <a class="docLink" href="#ch05ex34">Program 5.19</a> from the input <span class="docEmphasis">A M P L E</span>. The data items are in the leaves. Each internal node has a copy of the larger of the items in its two children, so, by induction, the largest item is at the root.</p>
+<p class="docText">
+<img border="0" alt="" width="400" height="87" src="05fig30.gif" /></p>
+<br />
+<a name="ch05ex34"></a><h5 id="title-IDATIO0H" class="docExampleTitle">Program 5.19. Construction of a tournament</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">This recursive function divides an array <tt>a[l]</tt>, <tt>. . .</tt> , <tt>a[r]</tt> into the two parts <tt>a[l]</tt>, <tt>. . .</tt>, <tt>a[m]</tt> and <tt>a[m+1]</tt>, <tt>. . .</tt> , <tt>a[r]</tt>, builds tournaments for the two parts (recursively), and makes a tournament for the whole array by setting links in a new node to the recursively built tournaments and setting its item value to the larger of the items in the roots of the two recursively built tournaments.</p>
+<div class="docText"><pre>struct node
+  { Item item; node *l, *r;
+    node(Item x)
+      { item = x; l = 0; r = 0; }
+  };
+typedef node* link;
+link max(Item a[], int l, int r)
+  { int m = (l+r)/2;
+    link x = new node(a[m]);
+    if (l == r) return x;
+    x-&gt;l = max(a, l, m);
+    x-&gt;r = max(a, m+1, r);
+    Item u = x-&gt;l-&gt;item, v = x-&gt;r-&gt;item;
+    if (u &gt; v)
+      x-&gt;item = u; else x-&gt;item = v;
+    return x;
+  }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">Indeed, tree-based implementations for several of the generalized queue ADTs that we discussed in <a class="docLink" href="ch04lev1sec6.html#ch04lev1sec6">Section 4.6</a> are a primary topic of discussion for much of this book. In particular, many of the algorithms in <a class="docLink" href="ch12.html#ch12">Chapters 12</a> through <a class="docLink" href="ch15.html#ch15">15</a> are based on <span class="docEmphasis">binary search trees</span>, which are explicit trees that correspond to binary search, in a relationship analogous to the relationship between the explicit structure of <a class="docLink" href="#ch05fig30">Figure 5.30</a> and the recursive find-the-maximum algorithm (see <a class="docLink" href="ch05lev1sec2.html#ch05fig06">Figure 5.6</a>). The <a name="iddle2028"></a><a name="iddle2553"></a>challenge in implementing and using such structures is to ensure that our algorithms remain efficient after a long sequence of <span class="docEmphasis">insert</span>, <span class="docEmphasis">remove</span>, and other operations.</p>
+<p class="docText">Our second example of a program that builds a binary tree is a modification of our prefix-expression&ndash;evaluation program in <a class="docLink" href="ch05lev1sec1.html#ch05lev1sec1">Section 5.1</a> (<a class="docLink" href="ch05lev1sec1.html#ch05ex04">Program 5.4</a>) to construct a tree representing a prefix expression, instead of just evaluating it (see <a class="docLink" href="#ch05fig31">Figure 5.31</a>). <a class="docLink" href="#ch05ex35">Program 5.20</a> uses the same recursive scheme as <a class="docLink" href="ch05lev1sec1.html#ch05ex04">Program 5.4</a>, but the recursive function returns a link to a tree, rather than a value. We create a new tree node for each character in the expression: Nodes corresponding to operators have links to their operands, and the leaf nodes contain the variables (or constants) that are inputs to the expression.</p>
+<a name="ch05fig31"></a><p><center>
+<h5 class="docFigureTitle">Figure 5.31. Parse tree</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This tree is constructed by <a class="docLink" href="#ch05ex35">Program 5.20</a> for the prefix expression <span class="docEmphasis">* + a * * b c + d e f</span>. It is a natural way to represent the expression: Each operand is in a leaf (which we draw here as an external node), and each operator is to be applied to the expressions represented by the left and right subtrees of the node containing the operator.</p>
+<p class="docText">
+<img border="0" alt="" width="175" height="88" src="05fig31.gif" /></p>
+<br />
+<p class="docText">Translation programs such as compilers often use such internal tree representations for programs, because the trees are useful for many purposes. For example, we might imagine operands corresponding to variables that take on values, and we could generate machine code to evaluate the expression represented by the tree with a postorder traversal. Or, we could use the tree to print out the expression in infix with an inorder traversal or in postfix with a postorder traversal.</p>
+<p class="docText">We considered the few examples in this section to introduce the concept that we can build and process explicit linked tree structures with recursive programs. To do so effectively, we need to consider the performance of various algorithms, alternate representations, non-recursive alternatives, and many other details. However, we shall defer consideration of tree-processing programs in further detail until <a class="docLink" href="ch12.html#ch12">Chapter 12</a>, because we use trees primarily for descriptive purposes in <a class="docLink" href="ch07.html#ch07">Chapters 7</a> through <a class="docLink" href="ch11.html#ch11">11</a>. We return to explicit tree implementations in <a class="docLink" href="ch12.html#ch12">Chapter 12</a> because they form the basis of numerous algorithms that we consider in <a class="docLink" href="ch12.html#ch12">Chapters 12</a> through <a class="docLink" href="ch15.html#ch15">15</a>.</p>
+<p class="docText"></p><a name="ch05ex35"></a><h5 id="title-IDARPO0H" class="docExampleTitle">Program 5.20. Construction of a parse tree</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">Using the same strategy that we used to evaluate prefix expressions (see <a class="docLink" href="ch05lev1sec1.html#ch05ex04">Program 5.4</a>), this program builds a parse tree from a prefix expression. For simplicity, we assume that operands are single characters. Each call of the recursive function creates a new node with the next character from the input as the token. If the token is an operand, we return the new node; if it is an operator, we set the left and right pointers to the tree built (recursively) for the two arguments.</p>
+<div class="docText"><pre>char *a; int i; struct node
+  { Item item; node *l, *r;
+    node(Item x)
+      { item = x; l = 0; r = 0; }
+  };
+typedef node* link;
+link parse()
+  { char t = a[i++]; link x = new node(t);
+   if ((t == '+') || (t == '*'))
+     { x-&gt;l = parse(); x-&gt;r = parse(); }
+   return x;
+  }</pre></div><br />
+</td></tr></table></p>
+<p class="docQandasetTitle">Exercises</p><p><table border="0" cellspacing="16" cellpadding="0"><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa7q1"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">5.85</span> Modify <a class="docLink" href="#ch05ex33">Program 5.18</a> to output a PostScript program that draws the tree, in a format like that used in <a class="docLink" href="ch05lev1sec5.html#ch05fig23">Figure 5.23</a>, but without the small boxes to represent the external nodes. Use <tt>moveto</tt> and <tt>lineto</tt> to draw lines, and the user-defined operator</p>
+<div class="docText"><pre>/node { newpath moveto currentpoint 4 0 360 arc fill} def</pre></div><br />
+<p class="docText">to draw nodes. After this definition, the call <tt>node</tt> draws a black dot at the coordinates on the stack (see <a class="docLink" href="ch04lev1sec3.html#ch04lev1sec3">Section 4.3</a>).</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa7q2"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">5.86</span> Write a program that counts the leaves in a binary tree.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa7q3"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">5.87</span> Write a program that counts the number of nodes in a binary tree that have one external and one internal child.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa7q4"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">5.88</span> Write a recursive program that computes the internal path length of a binary tree, using <a class="docLink" href="ch05lev1sec5.html#ch05ex25">Definition 5.6</a>.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa7q5"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">5.89</span> Determine the number of function calls made by your program when it is computing the internal path length of a binary tree. Prove your answer by induction.</p></td></tr><tr><td></td><td></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa7q6"></a><b></b></td><td><p class="docText"><a name="iddle1028"></a><a name="iddle1349"></a><a name="iddle1552"></a><a name="iddle1822"></a><a name="iddle2247"></a><a name="iddle2323"></a><img border="0" alt="" width="8" height="8" src="blackcircle.jpg" /> <span class="docEmphStrong">5.90</span> Write a recursive program that computes the internal path length of a binary tree in time proportional to the number of nodes in the tree.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch05qa7q7"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">5.91</span> Write a recursive program that removes all the leaves with a given key from a tournament (see <a class="docLink" href="ch05lev1sec4.html#ch05qa4q4">Exercise 5.59</a>).</p></td></tr></table></p>
+<ul></ul></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch05lev1sec6.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch05lev1sec8.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="top" align="right"><span style="white-space:nowrap"><a target="_self" href="#toppage" title="Top"></a></span></td></tr></table></div><!--IP User 2--></td></tr></table></td></body></head></html>

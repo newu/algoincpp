@@ -1,0 +1,127 @@
+<html><head><title>12.5. Binary Search Trees (BSTs)</title><title>TeamUnknown</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/globalstyle.css" /><link href="includes/searchResults.css" rel="stylesheet" type="text/css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/style.css" /><link rel="STYLESHEET" type="text/css" href="portals/bvdep/xsltemplates/docsafari.css" /><body><table width="100%" border="0" cellspacing="0" cellpadding="0"><td class="docBookTitle"><a href="toc.html"><b>[ Team Unknown ]</b></a></td></table><td align="center"><a name="MainContent"></a><table width="95%"><tr><td align="left" class="v2"><!--Copyright (c) 2002 Safari Tech Books Online--><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch12lev1sec4.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch12lev1sec6.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><div id="section"><br /><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top"><a href="17051538.html"><img src="pixel.gif" alt="" width="1" height="1" border="0" /></a>C++ Programming Robert Sedgewick - Princeton University Addison Wesley Professional Algorithms in C++, Parts 1&ndash;4: Fundamentals, Data Structure, Sorting, Searching, Third Edition<a name="ch12lev1sec5"></a>
+<h3 id="title-IDAUCQNM" class="docSection1Title">12.5. Binary Search Trees (BSTs)</h3>
+<p class="docText">To overcome the problem that insertions are expensive, we shall use an explicit tree structure as the basis for a symbol-table implementation.</p>
+<p class="docText"><a name="iddle1154"></a><a name="iddle1182"></a><a name="iddle1977"></a><a name="iddle2235"></a><a name="iddle2494"></a>The underlying data structure allows us to develop algorithms with fast average-case performance for the <span class="docEmphasis">search</span>, <span class="docEmphasis">insert</span>, <span class="docEmphasis">select</span>, and <span class="docEmphasis">sort</span> symbol-table operations. It is the method of choice for many applications, and qualifies as one of the most fundamental algorithms in computer science.</p>
+<p class="docText">We discussed trees at some length, in <a class="docLink" href="ch05.html#ch05">Chapter 5</a>, but it will be useful to review the terminology. The defining property of a <span class="docEmphasis">tree</span> is that every node is pointed to by only one other node, called the <span class="docEmphasis">parent</span>. The defining property of a <span class="docEmphasis">binary tree</span> is that each node has left and right links. Links may point to other binary trees or to <span class="docEmphasis">external nodes</span>, which have no links. Nodes with two links are also referred to as <span class="docEmphasis">internal nodes</span>. For search, each internal node also has an item with a key value, and we refer to links to external nodes as <span class="docEmphasis">null links</span>. The key values in internal nodes are compared with the search key, and control the progress of the search.</p>
+<a name="ch12ex14"></a><h5 id="title-IDAPFQNM" class="docExampleTitle">Definition 12.2. A <span class="docEmphasis">binary search tree (BST)</span> is a binary tree that has a key associated with each of its internal nodes, with the additional property that the key in any node is larger than (or equal to) the keys in all nodes in that node's left subtree and smaller than (or equal to) the keys in all nodes in that node's right subtree</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText"><a class="docLink" href="#ch12ex15">Program 12.8</a> uses BSTs to implement the symbol-table <span class="docEmphasis">search</span>, <span class="docEmphasis">insert</span>, <span class="docEmphasis">construct</span>, and <span class="docEmphasis">count</span> operations. The first part of the implementation defines nodes in BSTs as each containing an item (with a key), a left link, and a right link. The code also maintains a field that holds the number of nodes in the tree, to support an eager implementation of <span class="docEmphasis">count</span>. The left link points to a BST for items with smaller (or equal) keys, and the right link points to a BST for items with larger (or equal) keys.</p>
+<p class="docText">Given this structure, a recursive algorithm to search for a key in a BST follows immediately: If the tree is empty, we have a search miss; if the search key is equal to the key at the root, we have a search hit. Otherwise, we search (recursively) in the appropriate subtree. The <tt>searchR</tt> function in <a class="docLink" href="#ch12ex15">Program 12.8</a> implements this algorithm directly. We invoke a recursive routine that takes a tree as first argument and a key as second argument, starting with the root of the tree and the search key. At each step, we are guaranteed that no parts of the tree other than the current subtree can contain items with the search key.</p>
+<a name="ch12ex15"></a><h5 id="title-IDA2GQNM" class="docExampleTitle">Program 12.8. BST-based symbol table</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">The <tt>search</tt> and <tt>insert</tt> functions in this implementation use the private recursive functions <tt>searchR</tt> and <tt>insertR</tt> that directly mirror the recursive definition of BSTs. Note the use of a reference argument in <tt>insertR</tt> (<span class="docEmphasis">see text</span>). The link <tt>head</tt> points to the root of the tree.</p>
+<div class="docText"><pre>template &lt;class Item, class Key&gt;
+class ST
+  {
+   private:
+     struct node
+       { Item item; node *l, *r;
+         node(Item x)
+           { item = x; l = 0; r = 0; }
+       };
+     typedef node *link;
+     link head;
+     Item nullItem;
+     Item searchR(link h, Key v)
+       { if (h == 0) return nullItem;
+         Key t = h-&gt;item.key();
+         if (v == t) return h-&gt;item;
+         if (v &lt; t) return searchR(h-&gt;l, v);
+                  else return searchR(h-&gt;r, v);
+      }
+    void insertR(link&amp; h, Item x)
+      { if (h == 0) { h = new node(x); return; }
+        if (x.key() &lt; h-&gt;item.key())
+             insertR(h-&gt;l, x);
+        else insertR(h-&gt;r, x);
+      }
+   public:
+     ST(int maxN)
+       { head = 0; }
+     Item search(Key v)
+       { return searchR(head, v); }
+     void insert(Item x)
+       { insertR(head, x); }
+  };</pre></div><br />
+</td></tr></table></p>
+<p class="docText">Just as the size of the interval in binary search shrinks by a little more than half on each iteration, the current subtree in binary-tree search is smaller than the previous (by about half, ideally). The procedure stops either when an item with the search key is found (search hit) or when the current subtree becomes empty (search miss).</p>
+<p class="docText">The diagram at the top in <a class="docLink" href="#ch12fig04">Figure 12.4</a> illustrates the search process for a sample tree. Starting at the top, the search procedure at each node involves a recursive invocation for one of that node's children, so the search defines a path through the tree. For a search hit, the path terminates at the node containing the key. For a search miss, the path terminates at an external node, as illustrated in the middle diagram in <a class="docLink" href="#ch12fig04">Figure 12.4</a>.</p>
+<a name="ch12fig04"></a><p><center>
+<h5 class="docFigureTitle">Figure 12.4. BST search and insertion</h5>
+<h5></h5><h5></h5></center></p><p class="docText">In a successful search for <tt>H</tt> in this sample tree (top), we move right at the root (since <tt>H</tt> is larger than <tt>A</tt>), then left at the right subtree of the root (since <tt>H</tt> is smaller than <tt>S</tt>), and so forth, continuing down the tree until we encounter the <tt>H</tt>. In an unsuccessful search for <tt>M</tt> in this sample tree (center), we move right at the root (since <tt>M</tt> is larger than <tt>A</tt>), then left at the right subtree of the root (since <tt>M</tt> is smaller than <tt>S</tt>), and so forth, continuing down the tree until we encounter an external link at the left of <tt>N</tt> at the bottom. To insert <tt>M</tt> after the search miss, we simply replace the link that terminated the search with a link to <tt>M</tt> (bottom).</p>
+<p class="docText">
+<img border="0" alt="" width="135" height="321" src="12fig04.gif" /></p>
+</td></tr></table></p><br />
+<p class="docText"><a class="docLink" href="#ch12ex15">Program 12.8</a> uses 0 links to represent external nodes, and a private data member <tt>head</tt> that is a link to the root of the tree. To construct an empty BST, we set <tt>head</tt> to 0. We could also use a dummy node at the root and another to represent all external nodes, in various combinations analogous to those we considered for linked lists in <a class="docLink" href="ch03lev1sec4.html#ch03table01">Table 3.1</a> (see <a class="docLink" href="#ch12qa5q8">Exercise 12.53</a>).</p>
+<p class="docText">The search function in <a class="docLink" href="#ch12ex15">Program 12.8</a> is as simple as binary search; an essential feature of BSTs is that <span class="docEmphasis">insert</span> is as easy to implement as <span class="docEmphasis">search</span>. A recursive function <tt>insertR</tt> to insert a new item into a BST follows from logic similar to that we used to develop <tt>searchR</tt>, and uses a reference argument <tt>h</tt> to build the tree: If the tree is empty, we set <tt>h</tt> to link to a new node containing the item; if the search key is less than the key at the root, we insert the item into the left subtree; otherwise, we insert the item into the right subtree. That is, the reference argument is changed only at the last recursive call, when the new item is inserted. In <a class="docLink" href="ch12lev1sec8.html#ch12lev1sec8">Section 12.8</a> and in <a class="docLink" href="ch13.html#ch13">Chapter 13</a>, we shall study more advanced tree structures that are naturally expressed with this same recursive scheme, but that change the reference argument more often.</p>
+<p class="docText"><a class="docLink" href="#ch12fig05">Figures 12.5</a> and <a class="docLink" href="#ch12fig06">12.6</a> show how we construct a sample BST by inserting a sequence of keys into an initially empty tree. New nodes are attached to null links at the bottom of the tree; the tree structure is not otherwise changed. Because each node has two links, the tree tends to grow out, rather than down.</p>
+<a name="ch12fig05"></a><p><center>
+<h5 class="docFigureTitle">Figure 12.5. BST construction</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This sequence depicts the result of inserting the keys <tt>A S E R C H I N</tt> into an initially empty BST. Each insertion follows a search miss at the bottom of the tree.</p>
+<p class="docText">
+<img border="0" alt="" width="120" height="529" src="12fig05.gif" /></p>
+<br />
+<a name="ch12fig06"></a><p><center>
+<h5 class="docFigureTitle">Figure 12.6. BST construction</h5>
+<h5></h5><h5></h5></center></p><p class="docText">This sequence depicts insertion of the keys <tt>G X M P L</tt> to the BST started in <a class="docLink" href="#ch12fig05">Figure 12.5</a>.</p>
+<p class="docText">
+<img border="0" alt="" width="165" height="584" src="12fig06.gif" /></p>
+<br />
+<p class="docText">The <span class="docEmphasis">sort</span> function for symbol tables is available with little extra work when BSTs are used. Constructing a binary search tree amounts to sorting the items, since a binary search tree represents a sorted file when we look at it the right way. In our figures, the keys appear in order if read from left to right on the page (ignoring their height and the links). A program has only the links with which to work, but a simple inorder traversal does the job, by definition, as shown by the recursive implementation <tt>showR</tt> in <a class="docLink" href="#ch12ex16">Program 12.9</a>. To show the items in a BST in order of their keys, we show the items in the left subtree in order of their keys (recursively), then show the root, then show the items in the right subtree in order of their keys (recursively).</p>
+<a name="ch12ex16"></a><h5 id="title-IDAPPQNM" class="docExampleTitle">Program 12.9. Sorting with a BST</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">An inorder traversal of a BST visits the items in order of their keys. In this implementation, we use the <tt>item</tt> member function <tt>show</tt> to print the items in order of their keys.</p>
+<div class="docText"><pre>private:
+   void showR(link h, ostream&amp; os)
+     {
+       if (h == 0) return;
+       showR(h-&gt;l, os);
+       h-&gt;item.show(os);
+       showR(h-&gt;r, os);
+     }
+public:
+  void show(ostream&amp; os)
+    { showR(head, os); }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">As discussed in <a class="docLink" href="ch12lev1sec1.html#ch12lev1sec1">Section 12.1</a>, we shall refer on occasion to a generic <span class="docEmphasis">visit</span> operation for symbol tables, where we want to visit each of the items in the symbol table in a systematic manner. For BSTs, we can visit items in order of their keys by replacing &quot;show&quot; by &quot;visit&quot; in the description just given and perhaps arranging to pass the function to visit an item as a parameter (see <a class="docLink" href="ch05lev1sec6.html#ch05lev1sec6">Section 5.6</a>).</p>
+<p class="docText">Thinking nonrecursively when contemplating search and insert in BSTs is also instructive. In a nonrecursive implementation, the search process consists of a loop where we compare the search key against the key at the root, then move left if the search key is less and right if it is greater. Insertion consists of a search miss (ending in an empty link), then replacement of the empty link with a pointer to a new node. This process corresponds to manipulating the links explicitly along a path down the tree (see <a class="docLink" href="#ch12fig04">Figure 12.4</a>). In particular, to be able to insert a new node at the bottom, we need to maintain a link to the parent of the current node, as in the implementation in <a class="docLink" href="#ch12ex17">Program 12.10</a>. As usual, the recursive and nonrecursive versions are essentially equivalent, but understanding both points of view enhances our understanding of the algorithm and data structure.</p>
+<a name="ch12ex17"></a><h5 id="title-IDASZCEI" class="docExampleTitle">Program 12.10. Insertion in BSTs (nonrecursive)</h5><p><table cellspacing="0" width="90%" border="1" cellpadding="5"><tr><td>
+<p class="docText">Inserting an item into a BST is equivalent to doing an unsuccessful search for it, then attaching a new node for the item in place of the null link where the search terminates. Attaching the new node requires that we keep track of the parent <tt>p</tt> of the current node <tt>q</tt> as we proceed down the tree. When we reach the bottom of the tree, <tt>p</tt> points to the node whose link we must change to point to the new node inserted.</p>
+<div class="docText"><pre>void insert(Item x)
+  { Key v = x.key();
+    if (head == 0)
+       { head = new node(x); return; }
+    link p = head;
+    for (link q = p; q != 0; p = q ? q : p)
+      q = (v &lt; q-&gt;item.key()) ? q-&gt;l : q-&gt;r;
+    if (v &lt; p-&gt;item.key()) p-&gt;l = new node(x);
+                      else p-&gt;r = new node(x);
+  }</pre></div><br />
+</td></tr></table></p>
+<p class="docText">The BST functions in <a class="docLink" href="#ch12ex15">Program 12.8</a> do not explicitly check for items with duplicate keys. When a new node whose key is equal to some key already in the tree is inserted, it falls to the right of the node already in the tree. One side effect of this convention is that nodes with duplicate keys do not appear contiguously in the tree (see <a class="docLink" href="#ch12fig07">Figure 12.7</a>). However, we can find them by continuing the search from the point where <tt>search</tt> finds the first match, until we encounter a 0 link. There are several other options for dealing with items that have duplicate keys, as mentioned in <a class="docLink" href="ch09lev1sec1.html#ch09lev1sec1">Section 9.1</a>.</p>
+<a name="ch12fig07"></a><p><center>
+<h5 class="docFigureTitle">Figure 12.7. Duplicate keys in BSTs</h5>
+<h5></h5><h5></h5></center></p><p class="docText">When a BST has records with duplicate keys (top), they appear scattered throughout the tree, as illustrated by the three highlighted <tt>A</tt>'s. Duplicate keys do all appear on the search path for the key from the root to an external node, so they can readily be accessed. However, to avoid confusing usages such as &quot;the <tt>A</tt> below the <tt>C</tt>,&quot; we use distinct keys in our examples (bottom).</p>
+<p class="docText">
+<img border="0" alt="" width="175" height="234" src="12fig07.gif" /></p>
+<br />
+<p class="docText">BSTs are dual to quicksort. The node at the root of the tree corresponds to the partitioning element in quicksort (no keys to the left are larger, and no keys to the right are smaller). In <a class="docLink" href="ch12lev1sec6.html#ch12lev1sec6">Section 12.6</a>, we shall see how this observation relates to the analysis of properties of the trees.</p>
+</td></tr></table>
+<p class="docText">&nbsp;<a name="iddle2270"></a><a name="iddle1186"></a><a name="iddle2271"></a><a name="iddle2374"></a><a name="iddle1164"></a><a name="iddle1196"></a><a name="iddle1156"></a><a name="iddle1171"></a><a name="iddle1395"></a><a name="iddle2166"></a></p>
+<p class="docQandasetTitle">Exercises</p><p><table border="0" cellspacing="16" cellpadding="0"><tr><td></td><td></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q1"></a><b></b></td><td><p class="docText"><a name="iddle1157"></a><a name="iddle1170"></a><a name="iddle1396"></a><a name="iddle2291"></a><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">12.46</span> Draw the BST that results when you insert items with the keys <tt>E A S Y Q U T I O N</tt>, in that order, into an initially empty tree.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q2"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">12.47</span> Draw the BST that results when you insert items with the keys <tt>E A S Y Q U E S T I O N</tt>, in that order, into an initially empty tree.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q3"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">12.48</span> Give the number of comparisons required to put the keys <tt>E A S Y Q U E S T I O N</tt> into an initially empty symbol table using a BST. Assume that a <span class="docEmphasis">search</span> is performed for each key, followed by an <span class="docEmphasis">insert</span> for each search miss, as in <a class="docLink" href="ch12lev1sec1.html#ch12ex04">Program 12.3</a>.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q4"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">12.49</span> Inserting the keys in the order <tt>A S E R H I N G C</tt> into an initially empty tree also gives the top tree in <a class="docLink" href="#ch12fig06">Figure 12.6</a>. Give ten other orderings of these keys that produce the same result.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q5"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">12.50</span> Implement a <tt>searchinsert</tt> function for binary search trees (<a class="docLink" href="#ch12ex15">Program 12.8</a>). It should search the symbol table for an item with the same key as a given item, then insert the item if it finds none.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q6"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="triangle.jpg" /> <span class="docEmphStrong">12.51</span> Write a function that returns the number of items in a BST with keys equal to a given key.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q7"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">12.52</span> Suppose that we have an estimate ahead of time of how often search keys are to be accessed in a binary tree. Should the keys be inserted into the tree in increasing or decreasing order of likely frequency of access? Explain your answer.</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q8"></a><b></b></td><td><p class="docText"><img border="0" alt="" width="8" height="9" src="circle.jpg" /> <span class="docEmphStrong">12.53</span> Simplify the search and insertion code in the BST implementation in <a class="docLink" href="#ch12ex15">Program 12.8</a> by using two dummy nodes: a node <tt>head</tt> that contains an item with a sentinel key smaller than all others and whose right link points to the root of the tree; and a node <tt>z</tt> that contains an item with a sentinel key larger than all others, whose left and right links point to itself, and that represents all external nodes (external nodes are links to <tt>z</tt>). (<span class="docEmphasis">See <a class="docLink" href="ch03lev1sec4.html#ch03table01">Table 3.1</a></span>.)</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q9"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">12.54</span> Modify the BST implementation in <a class="docLink" href="#ch12ex15">Program 12.8</a> to keep items with duplicate keys in linked lists hanging from tree nodes. Change the interface to have <span class="docEmphasis">search</span> operate like <span class="docEmphasis">sort</span> (for all the items with the search key).</p></td></tr><tr valign="top"><td align="right" class="docText" width="50"><a name="ch12qa5q10"></a><b></b></td><td><p class="docText"><span class="docEmphStrong">12.55</span> The nonrecursive insertion procedure in <a class="docLink" href="#ch12ex17">Program 12.10</a> uses a redundant comparison to determine which link of <tt>p</tt> to replace with the new node. Give an implementation that uses pointers to links to avoid this comparison.</p></td></tr></table></p>
+<a href="17051538.html"><img src="pixel.gif" alt="" width="1" height="1" border="0" /></a><ul></ul></div></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="middle" class="v2" height="5"><img src="pixel.gif" width="1" height="5" alt="" border="0" /></td></tr><tr><td valign="middle" class="v2"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="left"><span style="white-space:nowrap">&nbsp;</span>
+                  &nbsp;
+                  <span style="white-space:nowrap"> &nbsp;&nbsp;</span>
+            &nbsp;<span style="white-space:nowrap">&nbsp;</span></td></tr></table></td><td></td><td valign="middle" class="v2" align="right"> 
+          &nbsp;
+          <span style="white-space:nowrap"><a target="_self" href="ch12lev1sec4.html" title="Previous section"><img border="0" align="absmiddle" src="btn_prev.gif" alt="Previous section" id="btn_prev" /></a></span>
+				
+				&nbsp;
+				
+				<span style="white-space:nowrap"><a target="_self" href="ch12lev1sec6.html" title="Next section"><img border="0" align="absmiddle" src="btn_next.gif" alt="Next section" id="btn_next" /></a></span></td></tr></table><table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td valign="top" align="right"><span style="white-space:nowrap"><a target="_self" href="#toppage" title="Top"></a></span></td></tr></table><!--IP User 2--></td></body></head></html>
